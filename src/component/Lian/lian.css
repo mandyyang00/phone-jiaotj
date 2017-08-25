@@ -1,0 +1,32 @@
+.lian{
+	width: 90%;
+	margin: 0 auto;
+	background: white;
+	margin-bottom: 20px;
+}
+.lian .title{
+	margin-left: 40%;
+	margin-bottom: 5px;
+}
+.lian .title >*{
+	width: 20%;
+	border:0;
+	line-height: 20px;
+	height: 20px
+}
+.lian .title> input{
+	outline: 0;
+	bottom: 0;
+	border-bottom:1px solid #aaaaaa
+}
+.lian table{
+	border-collapse:collapse;
+}
+.lian table td{
+	border:1px solid #aaaaaa;
+	height: 30px;
+	text-align: center
+}
+.lian table input{
+	width: 20%;
+}

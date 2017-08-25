@@ -4,5 +4,27 @@
   margin: 0;
   background-color: white;
 }
+.clearfix:before,.clearfix:after {content: " ";
+                                 display: block; 
+                                  clear: both;    
+                                   visibility: hidden;
+                                    line-height: 0; 
+                                       height: 0;
+                                      font-size:0; }
 
+
+input{
+  text-align: center;
+}
+textarea{
+  text-indent: 40px;
+  line-height: 30px;
+}
+*{
+	font-size: 14px;
+}
+h1{
+	font-size: 18px;
+	margin-top: 40px;
+}
 

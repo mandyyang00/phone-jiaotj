@@ -1,5 +1,6 @@
 import React from 'react'
 import Header from '../Header/Header'
+import './lian.css'
 
 
 
@@ -18,10 +19,14 @@ class Lianan extends React.Component{
 				</div>
 				<table>
 					<tr>
-						<td>案件来源</td>
-						<td></td>
-						<td>受案时间</td>
-						<td></td>
+						<td style={{'width':'40px'}}>案件<br/>来源</td>
+						<td style={{'width':'35%'}}>
+							<input type="text" style={{'width':'90%','border':'0','outline':'0'}}/>
+						</td>
+						<td style={{'width':'40px'}}>受案<br/>时间</td>
+						<td>
+							<input type="text" style={{'width':'90%','border':'0','outline':'0'}}/>
+						</td>
 					</tr>
 					<tr>
 						<td colSpan='4'>案件当事人基本情况
@@ -33,59 +38,121 @@ class Lianan extends React.Component{
 					</tr>
 					<tr>
 						<td>姓名</td>
-						<td></td>
+						<td>
+							<input type="text" style={{'width':'90%','border':'0','outline':'0'}}/>
+						</td>
 						<td>名称</td>
-						<td></td>
+						<td>
+							<input type="text" style={{'width':'90%','border':'0','outline':'0'}}/>
+						</td>
 					</tr>
 					<tr>
 						<td>性别</td>
-						<td></td>
+						<td>
+							<input type="text" style={{'width':'90%','border':'0','outline':'0'}}/>
+						</td>
 						<td>地址</td>
-						<td></td>
+						<td>
+							<input type="text" style={{'width':'90%','border':'0','outline':'0'}}/>
+						</td>
 					</tr>
 					<tr>
 						<td>年龄</td>
-						<td></td>
-						<td>法定代表人</td>
-						<td></td>
+						<td>
+							<input type="text" style={{'width':'90%','border':'0','outline':'0'}}/>
+						</td>
+						<td>法定<br/>代表人</td>
+						<td>
+							<input type="text" style={{'width':'90%','border':'0','outline':'0'}}/>
+						</td>
 					</tr>
 					<tr>
-						<td>身份证号</td>
-						<td></td>
-						<td>联系电话</td>
-						<td></td>
+						<td>身份<br/>证号</td>
+						<td>
+							<input type="text" style={{'width':'90%','border':'0','outline':'0'}}/>
+						</td>
+						<td>联系<br/>电话</td>
+						<td>
+							<input type="text" style={{'width':'90%','border':'0','outline':'0'}}/>
+						</td>
 					</tr>
 					<tr>
 						<td>住址</td>
-						<td></td>
+						<td>
+							<input type="text" style={{'width':'90%','border':'0','outline':'0'}}/>
+						</td>
 						<td></td>
 						<td></td>
 					</tr>
 					<tr>
-						<td>姓名</td>
+						<td>联系<br/>电话</td>
+						<td>
+							<input type="text" style={{'width':'90%','border':'0','outline':'0'}}/>
+						</td>
 						<td></td>
-						<td>联系电话</td>
-						<td></td>
+						<td>
+							
+						</td>
 					</tr>
 					<tr>
 						<td colSpan='4'>案件基本情况</td>
-						<td colSpan='4'></td>
+						
+					</tr>
+					<tr>
+						<td colSpan='4'>
+							<textarea name="" id="" cols="30" rows='4'
+									 style={{'width':'90%','border':'0','outline':'0'}}>
+							</textarea>
+						</td>
 					</tr>
 					<tr>
 						<td colSpan='4'>立案依据</td>
-						<td colSpan='4'></td>
+						
+					</tr>
+					<tr>
+						<td colSpan='4'>
+							<textarea name="" id="" cols="30" rows='4'
+									 style={{'width':'90%','border':'0','outline':'0'}}>
+							</textarea>
+						</td>
 					</tr>
 					<tr>
 						<td colSpan='4'>受案机构意见</td>
-						<td colSpan='4'></td>
+						
+					</tr>
+					<tr>
+						<td colSpan='4'>
+							<textarea name="" id="" cols="30" rows='4'
+									 style={{'width':'90%','border':'0','outline':'0'}}>
+							</textarea>
+							<p style={{'textIndent':'60%','lineHeight':'20px'}}>签名:
+								<input type="text"  style={{'width':'100px','border':'0','outline':'0'}}/>
+							</p>
+							<p style={{'textIndent':'60%','lineHeight':'20px'}}>时间:
+								<input type="text"  style={{'width':'100px','border':'0','outline':'0'}}/>
+							</p>
+						</td>
 					</tr>
 					<tr>
 						<td colSpan='4'>负责人审批意见</td>
-						<td colSpan='4'></td>
+						
 					</tr>
+						<td colSpan='4'>
+							<textarea name="" id="" cols="30" rows='4'
+									 style={{'width':'90%','border':'0','outline':'0'}}>
+							</textarea>
+							<p style={{'textIndent':'60%','lineHeight':'20px'}}>签名:
+								<input type="text"  style={{'width':'100px','border':'0','outline':'0'}}/>
+							</p>
+							<p style={{'textIndent':'60%','lineHeight':'20px'}}>时间:
+								<input type="text"  style={{'width':'100px','border':'0','outline':'0'}}/>
+							</p>
+						</td>
 					<tr>
 						<td>备注</td>
-						<td colSpan='3'></td>
+						<td colSpan='3'>
+							<input type="text" style={{'width':'90%','border':'0','outline':'0'}}/>
+						</td>
 					</tr>
 				</table>
 				

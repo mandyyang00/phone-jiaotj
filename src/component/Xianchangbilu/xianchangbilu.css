@@ -1,0 +1,18 @@
+.xianchangbilu{
+	width: 90%;
+	margin: 0 auto;
+	background: white;
+	margin-bottom: 20px;
+}
+
+.xianchangbilu table{
+	border-collapse:collapse;
+}
+.xianchangbilu table td{
+	border:1px solid #aaaaaa;
+	height: 30px;
+	text-align: center
+}
+.xianchangbilu table input{
+	width: 20%;
+}
