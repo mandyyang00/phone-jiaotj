@@ -1,0 +1,18 @@
+.xunwenbilu{
+	width: 90%;
+	margin: 0 auto;
+	background: white;
+	margin-bottom: 20px;
+}
+
+.xunwenbilu table{
+	border-collapse:collapse;
+}
+.xunwenbilu table td{
+	border:1px solid #aaaaaa;
+	height: 30px;
+	text-align: center
+}
+.xunwenbilu table input{
+	width: 20%;
+}

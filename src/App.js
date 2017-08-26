@@ -21,9 +21,10 @@ class App extends Component {
       	<div className="App">
          	<Route path='/' exact component={Login}></Route>
          	<Route path='/login' component={Login}></Route>
-				<Route path='/list' component={List}></Route>
-				<Route path='/xianchangbilu' component={Xianchangbilu}></Route>
-          	<Route path='/lian' component={Lian}></Route>
+				  <Route path='/list' component={List}></Route>
+				  <Route path='/xianchangbilu' component={Xianchangbilu}></Route>
+          <Route path='/lian' component={Lian}></Route>
+          <Route path='/xunwenbilu' component={Xunwenbilu}></Route>
       	</div>
       </BrowserRouter>
     );

@@ -125,10 +125,10 @@ class Lianan extends React.Component{
 							<textarea name="" id="" cols="30" rows='4'
 									 style={{'width':'90%','border':'0','outline':'0'}}>
 							</textarea>
-							<p style={{'textIndent':'60%','lineHeight':'20px'}}>签名:
+							<p style={{'textIndent':'50%','lineHeight':'20px'}}>签名:
 								<input type="text"  style={{'width':'100px','border':'0','outline':'0'}}/>
 							</p>
-							<p style={{'textIndent':'60%','lineHeight':'20px'}}>时间:
+							<p style={{'textIndent':'50%','lineHeight':'20px'}}>时间:
 								<input type="text"  style={{'width':'100px','border':'0','outline':'0'}}/>
 							</p>
 						</td>
@@ -141,10 +141,10 @@ class Lianan extends React.Component{
 							<textarea name="" id="" cols="30" rows='4'
 									 style={{'width':'90%','border':'0','outline':'0'}}>
 							</textarea>
-							<p style={{'textIndent':'60%','lineHeight':'20px'}}>签名:
+							<p style={{'textIndent':'50%','lineHeight':'20px'}}>签名:
 								<input type="text"  style={{'width':'100px','border':'0','outline':'0'}}/>
 							</p>
-							<p style={{'textIndent':'60%','lineHeight':'20px'}}>时间:
+							<p style={{'textIndent':'50%','lineHeight':'20px'}}>时间:
 								<input type="text"  style={{'width':'100px','border':'0','outline':'0'}}/>
 							</p>
 						</td>
