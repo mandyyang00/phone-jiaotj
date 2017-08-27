@@ -28,7 +28,7 @@ class Xianchangbilu extends React.Component{
 		// console.log(year)
 		this.state={
 			xianchangId:null,
-			time:`${year}年${month}月${day}日`,
+			time:`${year}-${month}-${day}`,
 			readOnly:'readonly',
 			visibal:false
 		}
@@ -63,6 +63,18 @@ class Xianchangbilu extends React.Component{
 		
 		
 	}
+
+	onOk(res){
+		// console.log(res)
+		this.props.dispatch({type:'GET_ID',xianchangId:res.data.ID})
+		this.setState({
+			xianchangId:res.data.ID,
+			readOnly:''
+			
+		})
+		// console.log(this.state.xianchangId)
+		sessionStorage.setItem('xianchangId',res.data.ID)
+	}
 	onClickDown(){
 		let place=document.querySelector('.place').value
 		let pliceman1=document.querySelector('.pliceman1').value
@@ -77,22 +89,35 @@ class Xianchangbilu extends React.Component{
 		let maincontent=document.querySelector('.maincontent').value
 		let about=document.querySelector('.about').value
 		let times=document.querySelector('.times').value
+		let data={
+			InvolvedID:this.state.xianchangId,
+			Place:place,
+			Time:times,
+			Enforcers1:pliceman1,
+			Certificates1:pliceID1,
+			Enforcers2:pliceman2,
+			Certificates2:pliceID2,
+			Recorder:plicewrite,
+			Content:maincontent,
+			EnforcerSign1:pliceman4,
+			EnforcerSign2:pliceman5,
+			EnforcerSignTime:times
 
-		
+		}
+
+		axios.post(`${url}/SceneRecordService/AddSceneRecord`,data)
+		.then(res=>this.onOkDown(res))
+		.catch(err=>console.log(err))
 
 	}
-
-	onOk(res){
-		// console.log(res)
-		this.props.dispatch({type:'GET_ID',xianchangId:res.data.ID})
+	onOkDowm(res){
+		console.log(res)
 		this.setState({
-			xianchangId:res.data.ID,
-			readOnly:''
-			
-		})
-		// console.log(this.state.xianchangId)
-		sessionStorage.setItem('xianchangId',res.data.ID)
-	}
+			visibal:true
+			})
+		}
+
+	
 
 	render(){
 		let {xianchangId,visibal}=this.state
@@ -237,7 +262,7 @@ class Xianchangbilu extends React.Component{
 				{visibal ? 
 					<Link to='/xunwenbilu'><button onClick={this.onClickDown.bind(this)}>询问笔录</button></Link>
 					:
-					<button  let onClick={this.onClickDown.bind(this)}>询问笔录</button>}
+					<button  onClick={this.onClickDown.bind(this)}>询问笔录</button>}
 				
 
 				
