@@ -6,6 +6,9 @@ import './list.css'
 
 
 class List extends React.Component{
+	componentDidMount(){
+		sessionStorage.setItem('xianchangId','')
+	}
 	render(){
 		return(
 			<div className='list'>

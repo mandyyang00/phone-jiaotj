@@ -1,11 +1,83 @@
 import React from 'react'
 import Header from '../Header/Header'
 import './xianchangbilu.css'
+import {Link } from 'react-router-dom'
+import {url} from '../config'
+import axios from 'axios'
+import { connect } from 'react-redux'
+import {message} from 'antd'
+
+
 
 
 
 class Xianchangbilu extends React.Component{
+	componentDidMount(){
+		
+
+
+	}
+	constructor(){
+		super()
+		let date=new Date()
+		let year=date.getFullYear()
+		let month=date.getMonth()+1
+		let day=date.getDate()
+		let hour=date.getHours()
+		let minute=date.getMinutes()
+		console.log(year)
+		this.state={
+			xianchangId:null,
+			time:`${year}年${month}月${day}日`
+		}
+	}
+	
+	onClick(){
+		let nameV=document.querySelector('.nameV').value
+		let sex=document.querySelector('.sex').value
+		let idcode=document.querySelector('.idcode').value
+		let relation=document.querySelector('.relation').value
+		let deparment=document.querySelector('.deparment').value
+		let tel=document.querySelector('.tel').value
+		let address=document.querySelector('.address').value
+		if(nameV.length!==0 && sex.length!==0 && idcode.length!==0 && relation.length!==0 && deparment.length!==0 && tel.length!==0 && address.length!==0 && nameV.trim()!=='' && sex.trim()!=='' && idcode.trim()!=='' && relation.trim()!=='' && deparment.trim()!=='' && tel.trim()!=='' && address.trim()!==''){
+			let data={
+			Name:nameV,
+			Sex:sex,
+			IDCode:idcode,
+			Relation:relation,
+			TelNo:tel,
+			Deparment:deparment,
+			Address:address
+			}
+			axios.post(`${url}/InvolvedService/AddInvolved`,data)
+			.then(res=>{
+				this.onOk(res)
+			})
+			.then(err=>console.log('错误才返回',err))
+		}else{
+			message.error('资料不完整')
+		}
+		
+		
+	}
+
+	onOk(res){
+		console.log(res)
+		this.props.dispatch({type:'GET_ID',xianchangId:res.data.ID})
+		this.setState({
+			xianchangId:res.data.ID
+			
+		})
+		console.log(this.state.xianchangId)
+		sessionStorage.setItem('xianchangId',res.data.ID)
+	}
+
 	render(){
+		let {xianchangId}=this.state
+		console.log(xianchangId)
+		
+
 		return(
 			<div className='xianchangbilu'>
 				<Header title='现场笔录'></Header>
@@ -46,36 +118,36 @@ class Xianchangbilu extends React.Component{
 						
 					</tr>
 					<tr>
-						<td colSpan='4'>现场人员基本情况</td>
+						<td colSpan='4' >现场人员基本情况</td>
 					</tr>
 					<tr>
-						<td>姓名</td>
+						<td className='name'>姓名</td>
 						<td style={{'width':'35%'}}>
-							<input type="text" style={{'width':'90%','border':'0','outline':'0'}}/>
+							<input type="text" style={{'width':'90%','border':'0','outline':'0'}}  className='nameV'/>
 						</td>
 						<td>性别</td>
 						<td style={{'width':'35%'}}>
-							<input type="text" style={{'width':'90%','border':'0','outline':'0'}}/>
+							<input type="text" style={{'width':'90%','border':'0','outline':'0'}} className='sex'/>
 						</td>
 					</tr>
 					<tr>
 						<td>身份<br/>证号</td>
 						<td style={{'width':'35%'}}>
-							<input type="text" style={{'width':'90%','border':'0','outline':'0'}}/>
+							<input type="text" style={{'width':'90%','border':'0','outline':'0'}} className='idcode'/>
 						</td>
 						<td>与本<br/>案关系</td>
 						<td style={{'width':'35%'}}>
-							<input type="text" style={{'width':'90%','border':'0','outline':'0'}}/>
+							<input type="text" style={{'width':'90%','border':'0','outline':'0'}} className='relation'/>
 						</td>
 					</tr>
 					<tr>
 						<td>单位<br/>及职务</td>
 						<td style={{'width':'35%'}}>
-							<input type="text" style={{'width':'90%','border':'0','outline':'0'}}/>
+							<input type="text" style={{'width':'90%','border':'0','outline':'0'}} className='deparment'/>
 						</td>
 						<td>联系<br/>电话</td>
 						<td style={{'width':'35%'}}>
-							<input type="text" style={{'width':'90%','border':'0','outline':'0'}}/>
+							<input type="text" style={{'width':'90%','border':'0','outline':'0'}} className='tel'/>
 						</td>
 					</tr>
 					<tr>
@@ -91,7 +163,7 @@ class Xianchangbilu extends React.Component{
 					<tr>
 						<td>联系<br/>地址</td>
 						<td colSpan='3' style={{'width':'35%'}}>
-							<input type="text" style={{'width':'90%','border':'0','outline':'0'}}/>
+							<input type="text" style={{'width':'90%','border':'0','outline':'0'}} className='address'/>
 						</td>
 					</tr>
 					<tr>
@@ -131,14 +203,20 @@ class Xianchangbilu extends React.Component{
 								<input type="text" style={{'width':'100px','border':'0','outline':'0','borderBottom':'1px solid #aaaaaa','margin':' 0  20px','lineHeight':'30px'}}/>
 							</p>
 							<p style={{'textAlign':'left','textIndent':'10px','marginBottom':'10px'}}>
-								    时间：<br/><input type="text" style={{'width':'100px','border':'0','outline':'0','borderBottom':'1px solid #aaaaaa','marginLeft':'30px','lineHeight':'30px'}}/>
+								    时间：<br/><input type="text" style={{'width':'100px','border':'0','outline':'0','borderBottom':'1px solid #aaaaaa','marginLeft':'30px','lineHeight':'30px'}} value={this.state.time}/>
 							</p>
 						</td>
 					</tr>
 				</table>
+				{xianchangId?
+					<Link to='/xunwenbilu'><button  onClick={this.onClick.bind(this)}>询问笔录</button></Link>
+					:<button  onClick={this.onClick.bind(this)}>询问笔录</button>
+				}
+
+				
 			</div>
 		)
 	}
 }
 
-export default Xianchangbilu
+export default connect(null)(Xianchangbilu)

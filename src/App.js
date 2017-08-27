@@ -4,12 +4,13 @@ import List from './component/List/List'
 import Xianchangbilu from './component/Xianchangbilu/Xianchangbilu'
 import Xunwenbilu from './component/Xunwenbilu/Xunwenbilu'
 import Lian from './component/Lian/Lian'
-
+import { Provider } from 'react-redux'
+import store from './redux/store'
 
 
 import './App.css';
 import {
-  BrowserRouter,
+  HashRouter,
   Route,
   Link
 } from 'react-router-dom'
@@ -17,7 +18,8 @@ import {
 class App extends Component {
   render() {
     return (
-    	 <BrowserRouter>
+      <Provider store={store}>
+    	 <HashRouter>
       	<div className="App">
          	<Route path='/' exact component={Login}></Route>
          	<Route path='/login' component={Login}></Route>
@@ -26,7 +28,8 @@ class App extends Component {
           <Route path='/lian' component={Lian}></Route>
           <Route path='/xunwenbilu' component={Xunwenbilu}></Route>
       	</div>
-      </BrowserRouter>
+      </HashRouter>
+      </Provider>
     );
   }
 }
