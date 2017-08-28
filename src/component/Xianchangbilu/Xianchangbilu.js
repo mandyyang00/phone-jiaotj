@@ -92,16 +92,14 @@ class Xianchangbilu extends React.Component{
 		let data={
 			InvolvedID:this.state.xianchangId,
 			Place:place,
-			Time:times,
 			Enforcers1:pliceman1,
 			Certificates1:pliceID1,
 			Enforcers2:pliceman2,
 			Certificates2:pliceID2,
 			Recorder:plicewrite,
-			Content:maincontent,
-			EnforcerSign1:pliceman4,
-			EnforcerSign2:pliceman5,
-			EnforcerSignTime:times
+			Content:maincontent
+			
+			
 
 		}
 		if(place.length!==0 && times.length!==0 && pliceman1.length!==0 && pliceman2.length!==0 && pliceman3.length!==0 && pliceman4.length!==0 && pliceman5.length!==0 && pliceID1.length!==0&& pliceID2.length!==0&& plicewrite.length!==0 &&  place.trim()!=='' && times.trim()!=='' && pliceman1.trim()!=='' && pliceman2.trim()!=='' && pliceman3.trim()!=='' && pliceman4.trim()!=='' && pliceman5.trim()!=='' && maincontent.trim()!=='' && pliceID1.trim()!==''&& pliceID2.trim()!==''&& plicewrite.trim()!==''&& maincontent.trim()!==''){
@@ -115,7 +113,7 @@ class Xianchangbilu extends React.Component{
 		
 
 	}
-	onOkDowm(res){
+	onOkDown(res){
 		console.log(res)
 		this.setState({
 			visibal:true
@@ -193,7 +191,7 @@ class Xianchangbilu extends React.Component{
 						</td>
 						<td style={{'width':'30px'}}>执法<br/>时间</td>
 						<td>
-							<input type="text" style={{'width':'90%','border':'0','outline':'0'}} value={this.state.time}  readOnly={this.state.readOnly} value={this.state.time}/>
+							<input type="text" style={{'width':'90%','border':'0','outline':'0'}}  readOnly={this.state.readOnly} className='times'/>
 						</td>
 					</tr>
 					<tr>
@@ -240,7 +238,7 @@ class Xianchangbilu extends React.Component{
 								现场人员签名：<input type="text" style={{'width':'100px','border':'0','outline':'0'}} readOnly={this.state.readOnly} className='pliceman3'/>
 							</p>
 							<p style={{'textAlign':'right','marginBottom':'20px'}}>
-								时间：<input type="text" style={{'width':'100px','border':'0','outline':'0'}} readOnly={this.state.readOnly} className='times'/>
+								时间：<input type="text" style={{'width':'100px','border':'0','outline':'0'}} readOnly={this.state.readOnly} className='times' className='times'/>
 							</p>
 						</td>
 					</tr>
@@ -259,7 +257,7 @@ class Xianchangbilu extends React.Component{
 								<input type="text" style={{'width':'100px','border':'0','outline':'0','borderBottom':'1px solid #aaaaaa','margin':' 0  20px','lineHeight':'30px'}} readOnly={this.state.readOnly} className='pliceman5'/>
 							</p>
 							<p style={{'textAlign':'left','textIndent':'10px','marginBottom':'10px'}}>
-								    时间：<br/><input type="text" style={{'width':'100px','border':'0','outline':'0','borderBottom':'1px solid #aaaaaa','marginLeft':'30px','lineHeight':'30px'}} value={this.state.time} readOnly={this.state.readOnly}/>
+								    时间：<br/><input type="text" style={{'width':'100px','border':'0','outline':'0','borderBottom':'1px solid #aaaaaa','marginLeft':'30px','lineHeight':'30px'}}  readOnly={this.state.readOnly} className='times'/>
 							</p>
 						</td>
 					</tr>

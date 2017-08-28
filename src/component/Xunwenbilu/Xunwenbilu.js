@@ -66,7 +66,7 @@ class Xunwenbilu extends React.Component{
 				<div>
 					<div className='clearfix'>
 						<p style={{'float':'right'}}>
-						第<input type="text" style={{'width':'50px','border':'0','outline':'0','borderBottom':'1px solid #aaaaaa'}}/>
+						第<input type="text" style={{'width':'50px','border':'0','outline':'0','borderBottom':'1px solid #aaaaaa'}} className=''/>
 								次询问
 						</p>
 					</div>
