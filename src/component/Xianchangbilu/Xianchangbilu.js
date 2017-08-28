@@ -104,18 +104,23 @@ class Xianchangbilu extends React.Component{
 			EnforcerSignTime:times
 
 		}
+		if(place.length!==0 && times.length!==0 && pliceman1.length!==0 && pliceman2.length!==0 && pliceman3.length!==0 && pliceman4.length!==0 && pliceman5.length!==0 && pliceID1.length!==0&& pliceID2.length!==0&& plicewrite.length!==0 &&  place.trim()!=='' && times.trim()!=='' && pliceman1.trim()!=='' && pliceman2.trim()!=='' && pliceman3.trim()!=='' && pliceman4.trim()!=='' && pliceman5.trim()!=='' && maincontent.trim()!=='' && pliceID1.trim()!==''&& pliceID2.trim()!==''&& plicewrite.trim()!==''&& maincontent.trim()!==''){
+				axios.post(`${url}/SceneRecordService/AddSceneRecord`,data)
+					.then(res=>this.onOkDown(res))
+					.catch(err=>console.log(err))
+		}else{
+			message.error('资料填写不完整')
+		}
 
-		axios.post(`${url}/SceneRecordService/AddSceneRecord`,data)
-		.then(res=>this.onOkDown(res))
-		.catch(err=>console.log(err))
+		
 
 	}
 	onOkDowm(res){
 		console.log(res)
 		this.setState({
 			visibal:true
-			})
-		}
+		})
+	}
 
 	
 
