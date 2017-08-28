@@ -9,14 +9,22 @@ class List extends React.Component{
 	componentDidMount(){
 		sessionStorage.setItem('xianchangId','')
 		sessionStorage.setItem('allId','')
+		sessionStorage.setItem('xunwenId','')
+		sessionStorage.setItem('lianId','')
 	}
 	render(){
 		return(
 			<div className='list'>
-				<Header title='秦皇岛市交通局执法系统'></Header>
+				<div className='clearfix'>
+					<Header></Header>	
+				</div>
+				
 				<div>
-					<Link to='/xianchangbilu'><button>新建现场笔录</button></Link>
-					<Link to='/anjianchuliList'><button>查看案件处理决定</button></Link>
+					<h1>秦皇岛市交通局执法系统</h1>
+					<div>
+						<Link to='/xianchangbilu'><button className='button'>新建现场笔录</button></Link>
+						<Link to='/anjianchuliList'><button className='button'>查看案件处理决定</button></Link>
+					</div>
 				</div>
 				
 			</div>

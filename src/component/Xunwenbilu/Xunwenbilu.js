@@ -21,7 +21,8 @@ class Xunwenbilu extends React.Component{
 		this.state={
 			data:null,
 			time:`${year}年${month}月${day}日${hour}时${minute}`,
-			visibal:false
+			visibal:false,
+			xunwenId:null
 		}
 	}
 	componentDidMount(){
@@ -32,12 +33,48 @@ class Xunwenbilu extends React.Component{
 				this.onOk(res)
 				)
 			.catch(err=>console.log(err))
+		let xunwenId=sessionStorage.xunwenId
+		if(xunwenId){
+			axios.post(`${url}/AskRecordService/GetAskRecord`,{ID:xunwenId})
+				.then(res=>this.idOk(res))
+				.catch(err=>console.log(err))
+			}else{
+				null
+			}
 	}
 	onOk(res){
 		console.log(res)
 		this.setState({
 			data:res.data
 		})
+	}
+	idOk(res){
+		console.log('sss',res)
+		document.querySelector('.seconds').value=res.data.InvolvedName
+		document.querySelector('.place').value=res.data.Place
+		document.querySelector('.askman').value=res.data.InvolvedIDCode
+		document.querySelector('.whiteman').value=res.data.InvolvedRelation
+		document.querySelector('.beixunwenren').value=res.data.InvolvedName
+		document.querySelector('.anjianguanxi').value=res.data.InvolvedRelation
+		document.querySelector('.sex').value=res.data.InvolvedSex
+		document.querySelector('.old').value=res.data.InvolvedID
+		document.querySelector('.codeid').value=res.data.InvolvedIDCode
+		document.querySelector('.tel').value=res.data.InvolvedTelNo
+		document.querySelector('.department').value=res.data.InvolvedDepartment
+		document.querySelector('.address').value=res.data.InvolvedAddress
+		document.querySelector('.who').value=res.data.Department
+		document.querySelector('.name1').value=res.data.Asker1
+		document.querySelector('.name2').value=res.data.Asker2
+		document.querySelector('.codeid1').value=res.data.Certificates1
+		document.querySelector('.codeid2').value=res.data.Certificates2
+		document.querySelector('.ask').value=res.data.InvolvedID
+		document.querySelector('.answer').value=res.data.InvolvedID
+		document.querySelector('.name3').value=res.data.Asker1Sign
+		document.querySelector('.nametime1').value=res.data.Times
+		document.querySelector('.name4').value=res.data.Asker2Sign
+		document.querySelector('.nametime2').value=res.data.AskerSignTime
+		document.querySelector('.about').value=res.data.InvolvedID
+
 	}
 	onOkDown(){
 		let place=document.querySelector('.place').value
@@ -82,8 +119,11 @@ class Xunwenbilu extends React.Component{
 	handleOk(res){
 		console.log(res)
 		this.setState({
-			visibal:true
+			visibal:true,
+			xunwenId:res.data.ID
+
 		})
+		sessionStorage.setItem('xunwenId',res.data.ID)
 	}
 
 	render(){
@@ -92,7 +132,8 @@ class Xunwenbilu extends React.Component{
 		return(
 			
 			<div className="xunwenbilu" >
-				<Header title='询问笔录'></Header>
+				<Header></Header>	
+				<h1>询问笔录</h1>
 				<Link to='/xianchangbilu'><button>返回上一级</button></Link>
 				{!data ? '加载中' :
 				<div>
@@ -138,44 +179,44 @@ class Xunwenbilu extends React.Component{
 						<tr>
 							<td>被询问人</td>
 							<td>
-								<input type="text" style={{'width':'90%','border':'0','outline':'0'}} value={data.Name}/>
+								<input type="text" style={{'width':'90%','border':'0','outline':'0'}} value={data.Name} className='beixunwenren'/>
 							</td>
 							<td>与案件关系</td>
 							<td>
-								<input type="text" style={{'width':'90%','border':'0','outline':'0'}} value={data.Relation}/>
+								<input type="text" style={{'width':'90%','border':'0','outline':'0'}} value={data.Relation} className='anjianguanxi'/>
 							</td>
 						</tr>
 						<tr>
 							<td>性别</td>
 							<td>
-								<input type="text" style={{'width':'90%','border':'0','outline':'0'}} value={data.Sex}/>
+								<input type="text" style={{'width':'90%','border':'0','outline':'0'}} value={data.Sex} className='sex'/>
 							</td>
 							<td>年龄</td>
 							<td>
-								<input type="text" style={{'width':'90%','border':'0','outline':'0'}} value={data.Name}/>
+								<input type="text" style={{'width':'90%','border':'0','outline':'0'}} value={data.Name} className='old'/>
 							</td>
 						</tr>
 						<tr>
 							<td>身份证号</td>
 							<td>
-								<input type="text" style={{'width':'90%','border':'0','outline':'0'}} value={data.IDCode}/>
+								<input type="text" style={{'width':'90%','border':'0','outline':'0'}} value={data.IDCode} className='codeid'/>
 							</td>
 							<td>联系电话</td>
 							<td>
-								<input type="text" style={{'width':'90%','border':'0','outline':'0'}} value={data.TelNo}/>
+								<input type="text" style={{'width':'90%','border':'0','outline':'0'}} value={data.TelNo} className='tel'/>
 							</td>
 						</tr>
 						<tr>
 							<td>工作单位及职务</td>
 							<td colSpan='3'>
-								<input type="text" style={{'width':'90%','border':'0','outline':'0'}} value={data.Relation}/>
+								<input type="text" style={{'width':'90%','border':'0','outline':'0'}} value={data.Relation} className='department'/>
 							</td>
 
 						</tr>
 						<tr>
 							<td>联系地址</td>
 							<td colSpan='3'>
-								<input type="text" style={{'width':'90%','border':'0','outline':'0'}} value={data.Address}/>
+								<input type="text" style={{'width':'90%','border':'0','outline':'0'}} value={data.Address} className='address'/>
 							</td>
 
 						</tr>
@@ -208,11 +249,16 @@ class Xunwenbilu extends React.Component{
 							
 						</tr>
 						<tr>
-							<td colSpan='2'>
+							<td colSpan='1'>
+								<input type="text" style={{'width':'90%','border':'0','outline':'0'}} className='name3'/>
+							</td>
+							<td colSpan='1'>
 								<input type="text" style={{'width':'90%','border':'0','outline':'0'}} className='nametime1'/>
 							</td>
-							
-							<td colSpan='2'>
+							<td colSpan='1'>
+								<input type="text" style={{'width':'90%','border':'0','outline':'0'}} className='name4'/>
+							</td>
+							<td colSpan='1'>
 								<input type="text" style={{'width':'90%','border':'0','outline':'0'}} className='nametime2'/>
 							</td>
 						</tr>

@@ -24,7 +24,10 @@ textarea{
 	font-size: 14px;
 }
 h1{
+   line-height: 80px;
 	font-size: 18px;
-	margin-top: 40px;
+	text-align: center;
+  margin: 0;
+  margin-bottom: 20px;
 }
 

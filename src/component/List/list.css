@@ -2,11 +2,11 @@
 	width: 100%;
 	margin: 0 auto;
 }
-.list div{
+.list h1{
 	margin: 0 auto;
-	margin-top: 20%
-}
-.list div button{
+	margin-top: 100px;
+	}
+.list div .button{
 	display: block;
 	line-height: 50px;
 	margin: 0 auto;

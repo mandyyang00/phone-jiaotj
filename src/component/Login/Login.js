@@ -66,7 +66,8 @@ class Login extends React.Component{
 		let {visibal} =this.state
 		return(
 			<div className='login'>
-				<Header title='秦皇岛市交通局执法系统'></Header>
+			
+				<h1>秦皇岛市交通局执法系统</h1>
 				<div>
 					<input type="text" placeholder="账号" className='account'/>
 					<input type="text" placeholder="密码" className='password'/>

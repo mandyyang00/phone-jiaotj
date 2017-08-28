@@ -13,7 +13,8 @@ class Lianan extends React.Component{
 		super()
 		this.state={
 			data:null,
-			visibal:false
+			visibal:false,
+			lianId:null
 		}
 	}
 	componentDidMount(){
@@ -28,8 +29,10 @@ class Lianan extends React.Component{
 	onOk(res){
 		console.log(res)
 		this.setState({
-			data:res.data
+			data:res.data,
+			lianId:res.data.ID
 		})
+		sessionStorage.setItem('lianId',res.data.ID)
 	}
 	handleOk(){
 		let InvolvedID=sessionStorage.xianchangId
@@ -82,8 +85,9 @@ class Lianan extends React.Component{
 			let {data,visibal}=this.state
 		return(
 			<div className='lian'>
-				<Header title='立案审批表'>
-				<Link to='/xunwenbilu'><button>返回上一级</button></Link></Header>
+				<Header></Header>	
+				<h1>立案审批表</h1>
+				<Link to='/xunwenbilu'><button>返回上一级</button></Link>
 				<div className='title'>
 
 					<input type="text" className='code1'/>

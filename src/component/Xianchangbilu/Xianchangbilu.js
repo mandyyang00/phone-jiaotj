@@ -171,7 +171,8 @@ class Xianchangbilu extends React.Component{
 
 		return(
 			<div className='xianchangbilu'>
-				<Header title='现场笔录'></Header>
+				<Header></Header>
+				<h1>现场笔录</h1>
 				<Link to='/list'><button>返回上一级</button></Link>
 				<table>
 					<tr>
