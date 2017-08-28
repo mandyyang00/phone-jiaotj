@@ -5,7 +5,8 @@ import './login.css'
 import axios from 'axios'
 import {connect} from 'react-redux'
 import {url} from '../config'
-import {Input, Button,message, } from 'antd';
+import {Input, Button,message, } from 'antd'
+import store from '../../redux/store'
 
 
 
@@ -14,9 +15,11 @@ class Login extends React.Component{
 		super()
 		this.state={
 			visiabl:false
+
 		}
 	
 	}
+	
 	onClick(){
 		let text=document.querySelector('.account').value
 		let password=document.querySelector('.password').value
@@ -52,7 +55,7 @@ class Login extends React.Component{
 		}else if(res.data.Code===2){
 			console.log(res)
 			this.setState({visibal:true})
-			this.props.dispatch({type:'LOGIN',userId:res.data.Data.ID})
+			store.dispatch({type:'LOGIN',userId:res.data.Data.ID})
 			sessionStorage.setItem('userId',res.data.Data.ID)
 			console.log(res.data.Data.ID)
 			

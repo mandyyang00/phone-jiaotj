@@ -5,6 +5,7 @@ import {url} from '../config'
 import axios from 'axios'
 import { connect } from 'react-redux'
 import {Link} from 'react-router-dom'
+import {message} from 'antd'
 
 
 class Xunwenbilu extends React.Component{
@@ -19,10 +20,11 @@ class Xunwenbilu extends React.Component{
 		console.log(year)
 		this.state={
 			data:null,
-			time:`${year}年${month}月${day}日${hour}时${minute}`
+			time:`${year}年${month}月${day}日${hour}时${minute}`,
+			visibal:false
 		}
 	}
-	componentWillMount(){
+	componentDidMount(){
 		let ID=sessionStorage.xianchangId
 		console.log(ID)
 		axios.post(`${url}/InvolvedService/GetInvolved`,{ID:ID})
@@ -41,32 +43,62 @@ class Xunwenbilu extends React.Component{
 		let place=document.querySelector('.place').value
 		let askman=document.querySelector('.askman').value
 		let whiteman=document.querySelector('.whiteman').value
+		let who=document.querySelector('.who').value
+		let name1=document.querySelector('.name1').value
+		let name2=document.querySelector('.name2').value
+		let codeid1=document.querySelector('.codeid1').value
+		let codeid2=document.querySelector('.codeid2').value
 		let ask=document.querySelector('.ask').value
 		let answer=document.querySelector('.answer').value
 		let nametime1=document.querySelector('.nametime1').value
 		let nametime2=document.querySelector('.nametime2').value
 		let about=document.querySelector('.about').value
 		let data={
-			
-		}
-		axios.post(`${url}/`,data)
-			.then(res=>console.log(res))
-			.catch(err=>console.log(err))
+			Place:place,
+			Asker1:askman,
+			Asker2:whiteman,
+			InvolvedID:sessionStorage.xianchangId,
+			Department:who,
+			Certificates1:codeid1,
+			Certificates2:codeid2,
+			Asker1:name1,
+			Asker1:name2,
+			AskContent:ask,
+			AnswerContent:answer,
+			Memo:about
 
+
+		}
+		if(place.length!==0 && askman.length!==0 && whiteman.length!==0  && who.length!==0 && codeid1.length!==0 && codeid2.length!==0 && name1.length!==0 && name2.length!==0 && ask.length!==0 && answer.length!==0 && about.length!==0 &&  place.trim()!=='' && askman.trim()!=='' && whiteman.trim()!=='' && ask.trim()!=='' && who.trim()!=='' && codeid1.trim()!=='' && codeid2.trim()!=='' && name1.trim()!=='' && name2.trim()!=='' && ask.trim()!=='' && answer.trim()!=='' && about.trim()!==''){
+			axios.post(`${url}/AskRecordService/AddAskRecord`,data)
+				.then(res=>this.handleOk(res))
+				.catch(err=>console.log(err))
+		}else{
+			message.error('资料不完整')
+		}
+		
+
+	}
+	handleOk(res){
+		console.log(res)
+		this.setState({
+			visibal:true
+		})
 	}
 
 	render(){
-		let {data}=this.state
+		let {data,visibal}=this.state
 		// console.log(data)
 		return(
 			
 			<div className="xunwenbilu" >
 				<Header title='询问笔录'></Header>
-				{!data ? 'jiazai' :
+				<Link to='/xianchangbilu'><button>返回上一级</button></Link>
+				{!data ? '加载中' :
 				<div>
 					<div className='clearfix'>
 						<p style={{'float':'right'}}>
-						第<input type="text" style={{'width':'50px','border':'0','outline':'0','borderBottom':'1px solid #aaaaaa'}} className=''/>
+						第<input type="text" style={{'width':'50px','border':'0','outline':'0','borderBottom':'1px solid #aaaaaa'}} className='seconds'/>
 								次询问
 						</p>
 					</div>
@@ -151,7 +183,8 @@ class Xunwenbilu extends React.Component{
 							<td colSpan='4'>
 								<p style={{'textIndent':'0','textAlign':'left'}}>
 								我们是：<input type="text" style={{'width':'80px','border':'0','outline':'0','borderBottom':'1px solid #aaaaaa'}} className='who'/>
-								的执法人员<input type="text" style={{'width':'80px','border':'0','outline':'0','borderBottom':'1px solid #aaaaaa'}} className='name'/>
+								的执法人员<input type="text" style={{'width':'80px','border':'0','outline':'0','borderBottom':'1px solid #aaaaaa'}} className='name1'/>,
+								<input type="text" style={{'width':'80px','border':'0','outline':'0','borderBottom':'1px solid #aaaaaa'}} className='name2'/>
 								这是我们的执法证件，执法证件号码分别是<input type="text" style={{'width':'80px','border':'0','outline':'0','borderBottom':'1px solid #aaaaaa'}} className='codeid1'/>、<input type="text" style={{'width':'80px','border':'0','outline':'0','borderBottom':'1px solid #aaaaaa'}} className='codeid2'/>，请你确认，现依法向你询问，请如实回答所有问题，执法人员与你有直接利害关系的，你可以申请回避。
 							
 								</p>
@@ -192,8 +225,12 @@ class Xunwenbilu extends React.Component{
 
 					</table>
 				</div>}	
-				<Link to='lian'><button onClick={this.onOkDown.bind(this)}>立案申请表</button></Link>
-				<button>立案申请表</button>
+				{visibal ?
+					<Link to='lian'><button onClick={this.onOkDown.bind(this)}>立案申请表</button></Link>
+					: <button onClick={this.onOkDown.bind(this)}>立案申请表</button>
+				}
+				
+				
 					
 					
 			</div>

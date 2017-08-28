@@ -13,10 +13,42 @@ import {message} from 'antd'
 
 class Xianchangbilu extends React.Component{
 	componentDidMount(){
-		
-
-
+		let ID=sessionStorage.allId
+		console.log('dfgvb',ID)
+		if(ID){
+			axios.post(`${url}/SceneRecordService/GetSceneRecord`,{ID:ID})
+				.then(res=>this.idOk(res))
+				.catch(err=>console.log(err))
+			}else{
+				null
+			}
 	}
+	idOk(res){
+		console.log('....',res)
+		document.querySelector('.nameV').value=res.data.InvolvedName
+		document.querySelector('.sex').value=res.data.InvolvedSex
+		document.querySelector('.idcode').value=res.data.InvolvedIDCode
+		document.querySelector('.relation').value=res.data.InvolvedRelation
+		document.querySelector('.deparment').value=res.data.InvolvedDepartment
+		document.querySelector('.tel').value=res.data.InvolvedTelNo
+		document.querySelector('.address').value=res.data.InvolvedAddress
+		document.querySelector('.place').value=res.data.place
+		document.querySelector('.pliceman1').value=res.data.Enforcers1
+		document.querySelector('.pliceman2').value=res.data.Enforcers2
+		document.querySelector('.pliceman3').value=res.data.InvolvedName
+		document.querySelector('.pliceman4').value=res.data.InvolvedName
+		document.querySelector('.pliceman5').value=res.data.InvolvedName
+		document.querySelector('.pliceID1').value=res.data.Certificates1
+		document.querySelector('.pliceID2').value=res.data.Certificates2
+		document.querySelector('.plicewrite').value=res.data.Recorder
+		document.querySelector('.titlecontent').value=res.data.InvolvedName
+		document.querySelector('.maincontent').value=res.data.Content
+		document.querySelector('.about').value=res.data.About
+		document.querySelector('.times').value=res.data.InvolvedName
+
+			
+	}
+
 	constructor(){
 		super()
 		let date=new Date()
@@ -28,9 +60,11 @@ class Xianchangbilu extends React.Component{
 		// console.log(year)
 		this.state={
 			xianchangId:null,
+			allId:null,
 			time:`${year}-${month}-${day}`,
 			readOnly:'readonly',
-			visibal:false
+			visibal:false,
+			
 		}
 	}
 	
@@ -49,7 +83,7 @@ class Xianchangbilu extends React.Component{
 			IDCode:idcode,
 			Relation:relation,
 			TelNo:tel,
-			Deparment:deparment,
+			Department:deparment,
 			Address:address
 			}
 			axios.post(`${url}/InvolvedService/AddInvolved`,data)
@@ -65,15 +99,18 @@ class Xianchangbilu extends React.Component{
 	}
 
 	onOk(res){
-		// console.log(res)
+		console.log(res)
 		this.props.dispatch({type:'GET_ID',xianchangId:res.data.ID})
 		this.setState({
+
 			xianchangId:res.data.ID,
-			readOnly:''
+			readOnly:'',
+			
 			
 		})
 		// console.log(this.state.xianchangId)
 		sessionStorage.setItem('xianchangId',res.data.ID)
+		
 	}
 	onClickDown(){
 		let place=document.querySelector('.place').value
@@ -97,7 +134,8 @@ class Xianchangbilu extends React.Component{
 			Enforcers2:pliceman2,
 			Certificates2:pliceID2,
 			Recorder:plicewrite,
-			Content:maincontent
+			Content:maincontent,
+			Memo:about
 			
 			
 
@@ -116,8 +154,12 @@ class Xianchangbilu extends React.Component{
 	onOkDown(res){
 		console.log(res)
 		this.setState({
-			visibal:true
+			visibal:true,
+			allId:res.data.ID
+
+
 		})
+		sessionStorage.setItem('allId',res.data.ID)
 	}
 
 	
@@ -130,6 +172,7 @@ class Xianchangbilu extends React.Component{
 		return(
 			<div className='xianchangbilu'>
 				<Header title='现场笔录'></Header>
+				<Link to='/list'><button>返回上一级</button></Link>
 				<table>
 					<tr>
 						<td colSpan='4' >现场人员基本情况</td>

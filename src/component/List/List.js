@@ -8,6 +8,7 @@ import './list.css'
 class List extends React.Component{
 	componentDidMount(){
 		sessionStorage.setItem('xianchangId','')
+		sessionStorage.setItem('allId','')
 	}
 	render(){
 		return(
