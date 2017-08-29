@@ -41,14 +41,8 @@ class Lianan extends React.Component{
 		let code3=document.querySelector('.code3').value
 		let come=document.querySelector('.come').value
 		let time1=document.querySelector('.time1').value
-		let time2=document.querySelector('.time2').value
-		let time3=document.querySelector('.time3').value
-		let name1=document.querySelector('.name1').value
-		let name2=document.querySelector('.name2').value
 		let basic=document.querySelector('.basic').value
 		let yiju=document.querySelector('.yiju').value
-		let shouanyijian=document.querySelector('.shouanyijian').value
-		let fuzerenyijian=document.querySelector('.fuzerenyijian').value
 		let about=document.querySelector('.about').value
 		let name3=document.querySelector('.name3').value
 		let address1=document.querySelector('.address1').value
@@ -62,15 +56,13 @@ class Lianan extends React.Component{
 			Source:come,
 			PrimaryContent:basic,
 			Basis:yiju,
-			AcceptContent:shouanyijian,
-			ManageContent:fuzerenyijian,
 			SceneRecordID:sessionStorage.allId,
 			AskRecordID:sessionStorage.xunwenId,
 			Memo:about
 
 
 		}
-		if(code1.length!==0 && code2.length!==0 && code3.length!==0  && come.length!==0 && time1.length!==0 && time2.length!==0 && name1.length!==0 && name2.length!==0 && time3.length!==0 && basic.length!==0 && yiju.length!==0 && shouanyijian.length!==0 && fuzerenyijian.length!==0 && about.length!==0 &&  code1.trim()!=='' && code2.trim()!=='' && code3.trim()!=='' && time3.trim()!=='' && come.trim()!=='' && time1.trim()!=='' && time2.trim()!=='' && name1.trim()!=='' && name2.trim()!=='' && basic.trim()!=='' && yiju.trim()!=='' && shouanyijian.trim()!=='' && fuzerenyijian.trim()!=='' && about.trim()!==''){
+		if(code1.length!==0 && code2.length!==0 && code3.length!==0  && come.length!==0 && time1.length!==0 &&  basic.length!==0 && yiju.length!==0 &&  about.length!==0 &&  code1.trim()!=='' && code2.trim()!=='' && code3.trim()!==''  && come.trim()!=='' && time1.trim()!==''  && basic.trim()!=='' && yiju.trim()!==''  && about.trim()!==''){
 			axios.post(`${url}/FilingService/Add`,data1)
 				.then(res=>this.handleGo(res))
 				.catch(err=>console.log(err))
@@ -196,7 +188,7 @@ class Lianan extends React.Component{
 					<tr>
 						<td colSpan='4'>
 							<textarea name="" id="" cols="30" rows='4'
-									 style={{'width':'90%','border':'0','outline':'0'}} className='yiju'>
+									 style={{'width':'90%','border':'0','outline':'0'}} className='yiju' readOnly='read'>
 							</textarea>
 						</td>
 					</tr>
@@ -207,13 +199,13 @@ class Lianan extends React.Component{
 					<tr>
 						<td colSpan='4'>
 							<textarea name="" id="" cols="30" rows='4'
-									 style={{'width':'90%','border':'0','outline':'0'}} className='shouanyijian'>
+									 style={{'width':'90%','border':'0','outline':'0'}} className='shouanyijian' readOnly='readonly'>
 							</textarea>
 							<p style={{'textIndent':'50%','lineHeight':'20px'}}>签名:
-								<input type="text"  style={{'width':'100px','border':'0','outline':'0'}} className='name1'/>
+								<input type="text"  style={{'width':'100px','border':'0','outline':'0'}} className='name1'readOnly='readonly'/>
 							</p>
 							<p style={{'textIndent':'50%','lineHeight':'20px'}}>时间:
-								<input type="text"  style={{'width':'100px','border':'0','outline':'0'}} className='time2'/>
+								<input type="text"  style={{'width':'100px','border':'0','outline':'0'}} className='time2'readOnly='readonly'/>
 							</p>
 						</td>
 					</tr>
@@ -223,13 +215,13 @@ class Lianan extends React.Component{
 					</tr>
 						<td colSpan='4'>
 							<textarea name="" id="" cols="30" rows='4'
-									 style={{'width':'90%','border':'0','outline':'0'}}  className='fuzerenyijian'>
+									 style={{'width':'90%','border':'0','outline':'0'}}  className='fuzerenyijian' readOnly='readonly'>
 							</textarea>
 							<p style={{'textIndent':'50%','lineHeight':'20px'}}>签名:
-								<input type="text"  style={{'width':'100px','border':'0','outline':'0'}} className='name2'/>
+								<input type="text"  style={{'width':'100px','border':'0','outline':'0'}} className='name2' readOnly='readonly'/>
 							</p>
 							<p style={{'textIndent':'50%','lineHeight':'20px'}}>时间:
-								<input type="text"  style={{'width':'100px','border':'0','outline':'0'}} className='time3'/>
+								<input type="text"  style={{'width':'100px','border':'0','outline':'0'}} className='time3' readOnly='readonly'/>
 							</p>
 						</td>
 					<tr>
