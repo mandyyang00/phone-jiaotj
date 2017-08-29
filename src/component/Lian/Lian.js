@@ -64,7 +64,7 @@ class Lianan extends React.Component{
 			Basis:yiju,
 			AcceptContent:shouanyijian,
 			ManageContent:fuzerenyijian,
-			SceneRecordID:sessionStorage.xianchangId,
+			SceneRecordID:sessionStorage.allId,
 			AskRecordID:sessionStorage.xunwenId,
 			Memo:about
 

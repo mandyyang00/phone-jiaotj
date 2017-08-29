@@ -7,8 +7,8 @@ import './list.css'
 
 class List extends React.Component{
 	componentDidMount(){
-		sessionStorage.setItem('xianchangId','') //现场笔录信息ID
-		sessionStorage.setItem('allId','')       //嫌疑人基本信息ID
+		sessionStorage.setItem('xianchangId','') //嫌疑人基本信息ID
+		sessionStorage.setItem('allId','')       //现场笔录信息ID
 		sessionStorage.setItem('xunwenId','')    //询问笔录信息ID
 		sessionStorage.setItem('lianId','')      //立案信息ID
 															  //userId    登录人员的ID
