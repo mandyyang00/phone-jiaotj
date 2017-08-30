@@ -1,0 +1,22 @@
+.anjianchulilist{
+	width: 90%;
+	margin: 0 auto;
+	background: white;
+	margin-bottom: 20px;
+}
+
+.anjianchulilist .content{
+	background: white;
+	width: 100%;
+	margin: 0 auto;
+	outline: 0;
+	margin-bottom: 20px;
+}
+.anjianchulilist table{
+	border-collapse:collapse;
+}
+.anjianchulilist td{
+	border:1px solid #aaaaaa;
+	height: 30px;
+	text-align: center
+}

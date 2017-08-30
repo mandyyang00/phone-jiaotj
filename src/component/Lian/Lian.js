@@ -62,7 +62,7 @@ class Lianan extends React.Component{
 
 
 		}
-		if(code1.length!==0 && code2.length!==0 && code3.length!==0  && come.length!==0 && time1.length!==0 &&  basic.length!==0 && yiju.length!==0 &&  about.length!==0 &&  code1.trim()!=='' && code2.trim()!=='' && code3.trim()!==''  && come.trim()!=='' && time1.trim()!==''  && basic.trim()!=='' && yiju.trim()!==''  && about.trim()!==''){
+		if(code1.length!==0 && code2.length!==0 && code3.length!==0  && come.length!==0 && time1.length!==0 &&  basic.length!==0 && yiju.length!==0 && code1.trim()!=='' && code2.trim()!=='' && code3.trim()!==''  && come.trim()!=='' && time1.trim()!==''  && basic.trim()!=='' && yiju.trim()!==''  ){
 			axios.post(`${url}/FilingService/Add`,data1)
 				.then(res=>this.handleGo(res))
 				.catch(err=>console.log(err))
@@ -72,6 +72,7 @@ class Lianan extends React.Component{
 	}
 
 	handleGo(res){
+		console.log(res)
 		this.setState({
 			visibal:true
 		})
@@ -188,7 +189,7 @@ class Lianan extends React.Component{
 					<tr>
 						<td colSpan='4'>
 							<textarea name="" id="" cols="30" rows='4'
-									 style={{'width':'90%','border':'0','outline':'0'}} className='yiju' readOnly='read'>
+									 style={{'width':'90%','border':'0','outline':'0'}} className='yiju'>
 							</textarea>
 						</td>
 					</tr>

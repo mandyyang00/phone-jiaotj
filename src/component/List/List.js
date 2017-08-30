@@ -24,7 +24,7 @@ class List extends React.Component{
 					<h1>秦皇岛市交通局执法系统</h1>
 					<div>
 						<Link to='/xianchangbilu'><button className='button'>新建现场笔录</button></Link>
-						<Link to='/anjianchuliList'><button className='button'>查看案件处理决定</button></Link>
+						<Link to='/anjianchulilist'><button className='button'>查看案件处理决定</button></Link>
 					</div>
 				</div>
 				
