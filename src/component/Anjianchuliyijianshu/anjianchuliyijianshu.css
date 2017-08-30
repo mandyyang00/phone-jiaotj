@@ -1,0 +1,18 @@
+.anjianchuliyijianshu{
+	width: 90%;
+	margin: 0 auto;
+	background: white;
+	margin-bottom: 20px;
+}
+
+.anjianchuliyijianshu table{
+	border-collapse:collapse;
+}
+.anjianchuliyijianshu table td{
+	border:1px solid #aaaaaa;
+	height: 30px;
+	text-align: center
+}
+.anjianchuliyijianshu table input{
+	width: 20%;
+}
