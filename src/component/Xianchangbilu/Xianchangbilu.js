@@ -6,6 +6,7 @@ import {url} from '../config'
 import axios from 'axios'
 import { connect } from 'react-redux'
 import {message} from 'antd'
+import classnames from 'classnames'
 
 
 
@@ -22,6 +23,9 @@ class Xianchangbilu extends React.Component{
 			}else{
 				null
 			}
+
+			let nameV=document.getElementsByClassName('nameV')[0].value
+			console.log(nameV)
 	}
 	idOk(res){
 		console.log('....',res)
@@ -64,36 +68,38 @@ class Xianchangbilu extends React.Component{
 			time:`${year}-${month}-${day}`,
 			readOnly:'readonly',
 			visibal:false,
+			class1:true
 			
 		}
 	}
 	
 	onClick(){
-		let nameV=document.querySelector('.nameV').value
-		let sex=document.querySelector('.sex').value
-		let idcode=document.querySelector('.idcode').value
-		let relation=document.querySelector('.relation').value
-		let deparment=document.querySelector('.deparment').value
-		let tel=document.querySelector('.tel').value
-		let address=document.querySelector('.address').value
-		if(nameV.length!==0 && sex.length!==0 && idcode.length!==0 && relation.length!==0 && deparment.length!==0 && tel.length!==0 && address.length!==0 && nameV.trim()!=='' && sex.trim()!=='' && idcode.trim()!=='' && relation.trim()!=='' && deparment.trim()!=='' && tel.trim()!=='' && address.trim()!==''){
-			let data={
-			Name:nameV,
-			Sex:sex,
-			IDCode:idcode,
-			Relation:relation,
-			TelNo:tel,
-			Department:deparment,
-			Address:address
-			}
-			axios.post(`${url}/InvolvedService/AddInvolved`,data)
-			.then(res=>{
-				this.onOk(res)
-			})
-			.then(err=>console.log('错误才返回',err))
-		}else{
-			message.error('资料不完整')
-		}
+		let nameV=document.querySelector('.nameV')[0].value
+
+		// let sex=document.querySelector('.sex').value
+		// let idcode=document.querySelector('.idcode').value
+		// let relation=document.querySelector('.relation').value
+		// let deparment=document.querySelector('.deparment').value
+		// let tel=document.querySelector('.tel').value
+		// let address=document.querySelector('.address').value
+		// if(nameV.length!==0 && sex.length!==0  nameV.trim()!=='' && sex.trim()!==''){
+		// 	let data={
+		// 	Name:nameV,
+		// 	Sex:sex,
+		// 	IDCode:idcode,
+		// 	Relation:relation,
+		// 	TelNo:tel,
+		// 	Department:deparment,
+		// 	Address:address
+		// 	}
+		// 	axios.post(`${url}/InvolvedService/AddInvolved`,data)
+		// 	.then(res=>{
+		// 		this.onOk(res)
+		// 	})
+		// 	.then(err=>console.log('错误才返回',err))
+		// }else{
+		// 	message.error('资料不完整')
+		// }
 		
 		
 	}
@@ -143,9 +149,9 @@ class Xianchangbilu extends React.Component{
 		axios.post(`${url}/SceneRecordService/AddSceneRecord`,data)
 					.then(res=>this.onOkDown(res))
 					.catch(err=>console.log(err))
-		if(place=='' || pliceman1=='' ||pliceman2=='' ||pliceman3=='' ||pliceman4=='' ||pliceman5=='' ||policeID1=='' ||policeID2=='' ||plicewrite=='' ||titlecontent=='' ||maincontent=='' ||about=='' ||){
-			
-		}
+		// if(place=='' || pliceman1=='' ||pliceman2=='' ||pliceman3=='' ||pliceman4=='' ||pliceman5=='' ||policeID1=='' ||policeID2=='' ||plicewrite=='' ||titlecontent=='' ||maincontent=='' ||about=='' ||){
+
+		// }
 		
 
 	}
@@ -155,7 +161,8 @@ class Xianchangbilu extends React.Component{
 		console.log(res)
 		this.setState({
 			visibal:true,
-			allId:res.data.ID
+			allId:res.data.ID,
+			
 
 
 		})
@@ -165,7 +172,7 @@ class Xianchangbilu extends React.Component{
 	
 
 	render(){
-		let {xianchangId,visibal}=this.state
+		let {xianchangId,visibal,class1}=this.state
 		// console.log(xianchangId)
 		
 
@@ -176,90 +183,104 @@ class Xianchangbilu extends React.Component{
 				<Link to='/list'><button>返回上一级</button></Link>
 				<table>
 					<tr>
-						<td colSpan='4' >现场人员基本情况</td>
+						<td colSpan='2' >现场人员基本情况</td>
 					</tr>
 					<tr>
-						<td className='name'>姓名</td>
-						<td style={{'width':'35%'}}>
-							<input type="text" style={{'width':'90%','border':'0','outline':'0'}}  className='nameV'/>
+						<td className='name'style={{'width':'19%'}} >姓名</td>
+						<td style={{'width':'80%'}}>
+							<input type="text" style={{'border':'0','outline':'0'}}  className='nameV'/>
 						</td>
+					</tr>
+					<tr>
 						<td>性别</td>
-						<td style={{'width':'35%'}}>
-							<input type="text" style={{'width':'90%','border':'0','outline':'0'}} className='sex'/>
+						<td>
+							<input type="text" style={{'border':'0','outline':'0'}} className='sex'/>
 						</td>
 					</tr>
 					<tr>
 						<td>身份<br/>证号</td>
-						<td style={{'width':'35%'}}>
-							<input type="text" style={{'width':'90%','border':'0','outline':'0'}} className='idcode'/>
+						<td>
+							<input type="text" style={{'border':'0','outline':'0'}} className={classnames({'idcode':true,'ss':class1})}/>
 						</td>
+					</tr>
+					<tr>
 						<td>与本<br/>案关系</td>
-						<td style={{'width':'35%'}}>
-							<input type="text" style={{'width':'90%','border':'0','outline':'0'}} className='relation'/>
+						<td>
+							<input type="text" style={{'border':'0','outline':'0'}} className={classnames({'relation':true,'ss':class1})}/>
 						</td>
 					</tr>
 					<tr>
 						<td>单位<br/>及职务</td>
-						<td style={{'width':'35%'}}>
-							<input type="text" style={{'width':'90%','border':'0','outline':'0'}} className='deparment'/>
+						<td>
+							<input type="text" style={{'border':'0','outline':'0'}} className={classnames({'deparment':true,'ss':class1})}/>
 						</td>
+					</tr>
+					<tr>
 						<td>联系<br/>电话</td>
-						<td style={{'width':'35%'}}>
-							<input type="text" style={{'width':'90%','border':'0','outline':'0'}} className='tel'/>
+						<td>
+							<input type="text" style={{'border':'0','outline':'0'}} className={classnames({'tel':true,'ss':class1})}/>
 						</td>
 					</tr>
 					<tr>
 						<td>车（船）<br/>号</td>
-						<td style={{'width':'35%'}}>
-							<input type="text" style={{'width':'90%','border':'0','outline':'0'}}/>
+						<td>
+							<input type="text" style={{'border':'0','outline':'0'}}/>
 						</td>
+					</tr>
+					<tr>
 						<td>车（船）<br/>型</td>
-						<td style={{'width':'35%'}}>
-							<input type="text" style={{'width':'90%','border':'0','outline':'0'}}/>
+						<td>
+							<input type="text" style={{'border':'0','outline':'0'}}/>
 						</td>
 					</tr>
 					<tr>
 						<td>联系<br/>地址</td>
-						<td colSpan='3' style={{'width':'35%'}}>
-							<input type="text" style={{'width':'90%','border':'0','outline':'0'}} className='address'/>
+						<td>
+							<input type="text" style={{'border':'0','outline':'0'}} className={classnames({'address':true,'ss':class1})}/>
 						</td>
 					</tr>
 					<tr >
-						<td colSpan='4'><button onClick={this.onClick.bind(this)}>保存基本信息</button>
+						<td colSpan='2'><button onClick={this.onClick.bind(this)}>保存基本信息</button>
 						</td>
 					</tr>
 					<tr>
-						<td style={{'width':'40px'}}>执法<br/>地点</td>
-						<td style={{'width':'33%'}}>
-							<input type="text" style={{'width':'90%','border':'0','outline':'0'}}  readOnly={this.state.readOnly} className='place'/>
-						</td>
-						<td style={{'width':'30px'}}>执法<br/>时间</td>
+						<td>执法<br/>地点</td>
 						<td>
-							<input type="text" style={{'width':'90%','border':'0','outline':'0'}}  readOnly={this.state.readOnly} className='times'/>
+							<input type="text" style={{'border':'0','outline':'0'}}  readOnly={this.state.readOnly} className={classnames({'place':true,'ss':true})}/>
+						</td>
+					</tr>
+					<tr>
+						<td>执法<br/>时间</td>
+						<td>
+							<input type="text" style={{'border':'0','outline':'0'}}  readOnly={this.state.readOnly} className={classnames({'times':true,'ss':class1})}/>
 						</td>
 					</tr>
 					<tr>
 						<td rowSpan='2' style={{'width':'40px'}}>执法<br/>人员</td>
-						<td style={{'width':'35%'}}>
-							<input type="text" style={{'width':'90%','border':'0','outline':'0'}} readOnly={this.state.readOnly} className='pliceman1'/>
+						<td>
+							<input type="text" style={{'border':'0','outline':'0'}} readOnly={this.state.readOnly} className={classnames({'pliceman1':true,'ss':class1})}/>
 						</td>
-						<td rowSpan='2' style={{'width':'30px'}}>执法<br/>证号</td>
-						<td style={{'width':'35%'}}>
-							<input type="text" style={{'width':'90%','border':'0','outline':'0'}} readOnly={this.state.readOnly} className='pliceID1'/>
+					</tr>
+					<td>
+							<input type="text" style={{'border':'0','outline':'0'}} readOnly={this.state.readOnly} className={classnames({'pliceman2':true,'ss':class1})}/>
+					</td>
+					<tr>
+						<td rowSpan='2'>执法<br/>证号</td>
+						<td>
+							<input type="text" style={{'border':'0','outline':'0'}} readOnly={this.state.readOnly} className={classnames({'pliceID1':true,'ss':class1})}/>
 						</td>
 					</tr>
 					<tr>
-						<td style={{'width':'35%'}}>
-							<input type="text" style={{'width':'90%','border':'0','outline':'0'}} readOnly={this.state.readOnly} className='pliceman2'/>
-						</td>
-						<td style={{'width':'35%'}}>
-							<input type="text" style={{'width':'90%','border':'0','outline':'0'}} readOnly={this.state.readOnly} className='pliceID2'/>
+						<td>
+							<input type="text" style={{'border':'0','outline':'0'}} readOnly={this.state.readOnly} className={classnames({'pliceID2':true,'ss':class1})}/>
 						</td>
 					</tr>
+					
+					
 					<tr>
-						<td style={{'width':'40px'}}>记录人</td>
-						<td colSpan='3' style={{'width':'35%'}}>
-							<input type="text" style={{'width':'90%','border':'0','outline':'0'}} readOnly={this.state.readOnly} className='plicewrite'/>
+						<td>记录人</td>
+						<td colSpan='3'>
+							<input type="text" style={{'border':'0','outline':'0'}} readOnly={this.state.readOnly} className={classnames({'plicewrite':true,'ss':class1})}/>
 						</td>
 						
 					</tr>

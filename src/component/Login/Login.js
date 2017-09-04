@@ -7,6 +7,8 @@ import {connect} from 'react-redux'
 import {url} from '../config'
 import {Input, Button,message, } from 'antd'
 import store from '../../redux/store'
+import classnames from 'classnames'
+
 
 
 
@@ -14,10 +16,14 @@ class Login extends React.Component{
 	constructor(){
 		super()
 		this.state={
-			visiabl:false
+			visiabl:false,
+			class1:false
 
 		}
 	
+	}
+	componentDidMount(){
+		console.log(document.getElementsByClassName('aa')[0])
 	}
 	
 	onClick(){
@@ -61,8 +67,9 @@ class Login extends React.Component{
 			console.log(res.data.Data.ID)
 					
 		}
+		this.setState({class1:'ss'})
 
-		
+
 
 	}
 	render(){
@@ -82,7 +89,7 @@ class Login extends React.Component{
 						<button onClick={this.onClick.bind(this)}>登录</button>
 					}
 				</div>
-				<div className='aa'></div>
+				<div className={classnames({'aa': true,'ss': true})}></div>
 
 			</div>
 		)
