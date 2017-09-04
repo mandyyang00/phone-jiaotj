@@ -48,6 +48,7 @@ class Login extends React.Component{
 		
 	}
 	dataOk(res){
+		console.log(res)
 		if(res.data.Code===0){
 			message.error(res.data.Message)
 		}else if(res.data.Code===1){
@@ -58,9 +59,11 @@ class Login extends React.Component{
 			store.dispatch({type:'LOGIN',userId:res.data.Data.ID})
 			sessionStorage.setItem('userId',res.data.Data.ID)
 			console.log(res.data.Data.ID)
-			
 					
 		}
+
+		
+
 	}
 	render(){
 		let {visibal} =this.state
@@ -79,6 +82,8 @@ class Login extends React.Component{
 						<button onClick={this.onClick.bind(this)}>登录</button>
 					}
 				</div>
+				<div className='aa'></div>
+
 			</div>
 		)
 	}

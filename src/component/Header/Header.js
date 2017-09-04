@@ -16,6 +16,7 @@ class Header extends React.Component{
 	render(){
 		return(
 			<div className='header'>
+			
 				<Link to='/'><button onClick={this.loginOut.bind(this)}>退出</button></Link>
 			</div>
 		)

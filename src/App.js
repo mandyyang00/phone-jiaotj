@@ -18,6 +18,14 @@ import {
 } from 'react-router-dom'
 
 class App extends Component {
+  //    hasClass(obj,cls) {  
+  //       return obj.className.match(new RegExp('(\\s|^)' + cls + '(\\s|$)'));  
+  //   };  
+      
+  // addClass(obj,cls) {  
+  //       if (!hasClass(obj,cls)) obj.className += " " + cls;  
+  //   }  
+      
   render() {
     return (
       <Provider store={store}>
@@ -32,6 +40,7 @@ class App extends Component {
           <Route path='/anjianchulilist' component={Anjianchulilist}></Route>
           <Route path='/anjianchuliyijianshu' component={Anjianchuliyijianshu}></Route>
       	</div>
+
       </HashRouter>
       </Provider>
     );
