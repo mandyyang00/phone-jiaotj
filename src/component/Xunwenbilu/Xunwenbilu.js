@@ -106,13 +106,11 @@ class Xunwenbilu extends React.Component{
 
 
 		}
-		if(place.length!==0 && askman.length!==0 && whiteman.length!==0  && who.length!==0 && codeid1.length!==0 && codeid2.length!==0 && name1.length!==0 && name2.length!==0 && ask.length!==0 && answer.length!==0 && about.length!==0 &&  place.trim()!=='' && askman.trim()!=='' && whiteman.trim()!=='' && ask.trim()!=='' && who.trim()!=='' && codeid1.trim()!=='' && codeid2.trim()!=='' && name1.trim()!=='' && name2.trim()!=='' && ask.trim()!=='' && answer.trim()!=='' && about.trim()!==''){
+		
 			axios.post(`${url}/AskRecordService/AddAskRecord`,data)
 				.then(res=>this.handleOk(res))
 				.catch(err=>console.log(err))
-		}else{
-			message.error('资料不完整')
-		}
+		
 		
 
 	}

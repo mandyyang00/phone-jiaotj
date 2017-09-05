@@ -22,9 +22,9 @@ class Login extends React.Component{
 		}
 	
 	}
-	componentDidMount(){
-		console.log(document.getElementsByClassName('aa')[0])
-	}
+	// componentDidMount(){
+	// 	console.log(document.getElementsByClassName('aa')[0])
+	// }
 	
 	onClick(){
 		let text=document.querySelector('.account').value

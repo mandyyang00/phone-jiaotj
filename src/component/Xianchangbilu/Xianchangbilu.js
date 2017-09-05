@@ -24,8 +24,16 @@ class Xianchangbilu extends React.Component{
 				null
 			}
 
-			let nameV=document.getElementsByClassName('nameV')[0].value
-			console.log(nameV)
+
+		// let idcode=document.querySelector('.idcode').value
+		// console.log(idcode)
+
+		// if(idcode.length!=0){
+		// 	this.setState({
+		// 		class2:false
+		// 	}})
+		// }
+			
 	}
 	idOk(res){
 		console.log('....',res)
@@ -68,38 +76,100 @@ class Xianchangbilu extends React.Component{
 			time:`${year}-${month}-${day}`,
 			readOnly:'readonly',
 			visibal:false,
-			class1:true
+			
+				class1:false,
+				class2:false,
+				class3:false,
+				class4:false,
+				class5:false,
+				class6:false,
+				class7:false,
+				class8:false,
+				class8:false,
+				class10:false,
+				class11:false,
+				class12:false,
+				class13:false,
+				class14:false,
+				class15:false,
+				class16:false,
+
+
+			
+
 			
 		}
 	}
 	
 	onClick(){
-		let nameV=document.querySelector('.nameV')[0].value
+		let nameV=document.querySelector('.nameV').value
+		let sex=document.querySelector('.sex').value
+		let idcode=document.querySelector('.idcode').value
+		let relation=document.querySelector('.relation').value
+		let deparment=document.querySelector('.deparment').value
+		let tel=document.querySelector('.tel').value
+		let che=document.querySelector('.che').value
+		let chuan=document.querySelector('.chuan').value
+		let address=document.querySelector('.address').value
+		
+			let data={
+				Name:nameV,
+				Sex:sex,
+				IDCode:idcode,
+				Relation:relation,
+				TelNo:tel,
+				Department:deparment,
+				Address:address
+			}
+			axios.post(`${url}/InvolvedService/AddInvolved`,data)
+			.then(res=>{
+				this.onOk(res)
+			})
+			.then(err=>console.log('错误才返回',err))
+		
 
-		// let sex=document.querySelector('.sex').value
-		// let idcode=document.querySelector('.idcode').value
-		// let relation=document.querySelector('.relation').value
-		// let deparment=document.querySelector('.deparment').value
-		// let tel=document.querySelector('.tel').value
-		// let address=document.querySelector('.address').value
-		// if(nameV.length!==0 && sex.length!==0  nameV.trim()!=='' && sex.trim()!==''){
-		// 	let data={
-		// 	Name:nameV,
-		// 	Sex:sex,
-		// 	IDCode:idcode,
-		// 	Relation:relation,
-		// 	TelNo:tel,
-		// 	Department:deparment,
-		// 	Address:address
-		// 	}
-		// 	axios.post(`${url}/InvolvedService/AddInvolved`,data)
-		// 	.then(res=>{
-		// 		this.onOk(res)
-		// 	})
-		// 	.then(err=>console.log('错误才返回',err))
-		// }else{
-		// 	message.error('资料不完整')
-		// }
+		if(nameV.length==0){
+			this.setState({
+				class1:true
+			})
+		}
+		if(idcode.length==0){
+			this.setState({
+				class2:true
+			})
+		}
+		if(relation.length==0){
+			this.setState({
+				class3:true
+			})
+		}
+		if(deparment.length==0){
+			this.setState({
+				class4:true
+			})
+		}
+		if(tel.length==0){
+			this.setState({
+				class5:true
+			})
+		}
+		if(che.length==0){
+			this.setState({
+				class6:true
+			})
+		}
+		if(chuan.length==0){
+			this.setState({
+				class7:true
+			})
+		}
+		if(address.length==0){
+			this.setState({
+				class8:true
+			})
+		}
+
+		
 		
 		
 	}
@@ -108,14 +178,12 @@ class Xianchangbilu extends React.Component{
 		console.log(res)
 		this.props.dispatch({type:'GET_ID',xianchangId:res.data.ID})
 		this.setState({
-
 			xianchangId:res.data.ID,
 			readOnly:'',
-			
-			
 		})
 		// console.log(this.state.xianchangId)
 		sessionStorage.setItem('xianchangId',res.data.ID)
+		
 		
 	}
 	onClickDown(){
@@ -149,9 +217,42 @@ class Xianchangbilu extends React.Component{
 		axios.post(`${url}/SceneRecordService/AddSceneRecord`,data)
 					.then(res=>this.onOkDown(res))
 					.catch(err=>console.log(err))
-		// if(place=='' || pliceman1=='' ||pliceman2=='' ||pliceman3=='' ||pliceman4=='' ||pliceman5=='' ||policeID1=='' ||policeID2=='' ||plicewrite=='' ||titlecontent=='' ||maincontent=='' ||about=='' ||){
-
-		// }
+		
+		if(place.length==0){
+			this.setState({
+				class9:true
+			})
+		}
+		if(times.length==0){
+			this.setState({
+				class10:true
+			})
+		}
+		if(pliceman1.length==0){
+			this.setState({
+				class11:true
+			})
+		}
+		if(pliceman2.length==0){
+			this.setState({
+				class12:true
+			})
+		}
+		if(pliceID1.length==0){
+			this.setState({
+				class13:true
+			})
+		}
+		if(pliceID2.length==0){
+			this.setState({
+				class14:true
+			})
+		}
+		if(plicewrite.length==0){
+			this.setState({
+				class15:true
+			})
+		}
 		
 
 	}
@@ -172,7 +273,7 @@ class Xianchangbilu extends React.Component{
 	
 
 	render(){
-		let {xianchangId,visibal,class1}=this.state
+		let {xianchangId,visibal,class1,class2,class3,class4,class5,class6,class7,class8,class9,class10,class11,class12,class13,class14,class15,class16}=this.state
 		// console.log(xianchangId)
 		
 
@@ -188,55 +289,56 @@ class Xianchangbilu extends React.Component{
 					<tr>
 						<td className='name'style={{'width':'19%'}} >姓名</td>
 						<td style={{'width':'80%'}}>
-							<input type="text" style={{'border':'0','outline':'0'}}  className='nameV'/>
+							<input type="text" style={{'border':'0','outline':'0'}}  className={classnames({'nameV':true,'ss':class1})}/>
 						</td>
 					</tr>
 					<tr>
 						<td>性别</td>
-						<td>
-							<input type="text" style={{'border':'0','outline':'0'}} className='sex'/>
+						<td style={{'lineHeight':'35px'}}>
+							<label >男</label><input type="radio" style={{'width':'14px','height':'25px','verticalAlign':'middle','display':'inline-block'}} name='sex' value='男'/>
+							<label>女</label><input type="radio" style={{'width':'14px','height':'25px','verticalAlign':'middle','display':'inline-block'}} name='sex' value='女'/>
 						</td>
 					</tr>
 					<tr>
 						<td>身份<br/>证号</td>
 						<td>
-							<input type="text" style={{'border':'0','outline':'0'}} className={classnames({'idcode':true,'ss':class1})}/>
+							<input type="text" style={{'border':'0','outline':'0'}} className={classnames({'idcode':true,'ss':class2})} value='aaaa'/>
 						</td>
 					</tr>
 					<tr>
 						<td>与本<br/>案关系</td>
 						<td>
-							<input type="text" style={{'border':'0','outline':'0'}} className={classnames({'relation':true,'ss':class1})}/>
+							<input type="text" style={{'border':'0','outline':'0'}} className={classnames({'relation':true,'ss':class3})}/>
 						</td>
 					</tr>
 					<tr>
 						<td>单位<br/>及职务</td>
 						<td>
-							<input type="text" style={{'border':'0','outline':'0'}} className={classnames({'deparment':true,'ss':class1})}/>
+							<input type="text" style={{'border':'0','outline':'0'}} className={classnames({'deparment':true,'ss':class4})}/>
 						</td>
 					</tr>
 					<tr>
 						<td>联系<br/>电话</td>
 						<td>
-							<input type="text" style={{'border':'0','outline':'0'}} className={classnames({'tel':true,'ss':class1})}/>
+							<input type="text" style={{'border':'0','outline':'0'}} className={classnames({'tel':true,'ss':class5})}/>
 						</td>
 					</tr>
 					<tr>
 						<td>车（船）<br/>号</td>
 						<td>
-							<input type="text" style={{'border':'0','outline':'0'}}/>
+							<input type="text" style={{'border':'0','outline':'0'}} className={classnames({'che':true,'ss':class6})}/>
 						</td>
 					</tr>
 					<tr>
 						<td>车（船）<br/>型</td>
 						<td>
-							<input type="text" style={{'border':'0','outline':'0'}}/>
+							<input type="text" style={{'border':'0','outline':'0'}} className={classnames({'chuan':true,'ss':class7})}/>
 						</td>
 					</tr>
 					<tr>
 						<td>联系<br/>地址</td>
 						<td>
-							<input type="text" style={{'border':'0','outline':'0'}} className={classnames({'address':true,'ss':class1})}/>
+							<input type="text" style={{'border':'0','outline':'0'}} className={classnames({'address':true,'ss':class8})}/>
 						</td>
 					</tr>
 					<tr >
@@ -246,33 +348,33 @@ class Xianchangbilu extends React.Component{
 					<tr>
 						<td>执法<br/>地点</td>
 						<td>
-							<input type="text" style={{'border':'0','outline':'0'}}  readOnly={this.state.readOnly} className={classnames({'place':true,'ss':true})}/>
+							<input type="text" style={{'border':'0','outline':'0'}}  readOnly={this.state.readOnly} className={classnames({'place':true,'ss':class9})}/>
 						</td>
 					</tr>
 					<tr>
 						<td>执法<br/>时间</td>
 						<td>
-							<input type="text" style={{'border':'0','outline':'0'}}  readOnly={this.state.readOnly} className={classnames({'times':true,'ss':class1})}/>
+							<input type="text" style={{'border':'0','outline':'0'}}  readOnly={this.state.readOnly} className={classnames({'times':true,'ss':class10})}/>
 						</td>
 					</tr>
 					<tr>
 						<td rowSpan='2' style={{'width':'40px'}}>执法<br/>人员</td>
 						<td>
-							<input type="text" style={{'border':'0','outline':'0'}} readOnly={this.state.readOnly} className={classnames({'pliceman1':true,'ss':class1})}/>
+							<input type="text" style={{'border':'0','outline':'0'}} readOnly={this.state.readOnly} className={classnames({'pliceman1':true,'ss':class11})}/>
 						</td>
 					</tr>
 					<td>
-							<input type="text" style={{'border':'0','outline':'0'}} readOnly={this.state.readOnly} className={classnames({'pliceman2':true,'ss':class1})}/>
+							<input type="text" style={{'border':'0','outline':'0'}} readOnly={this.state.readOnly} className={classnames({'pliceman2':true,'ss':class12})}/>
 					</td>
 					<tr>
 						<td rowSpan='2'>执法<br/>证号</td>
 						<td>
-							<input type="text" style={{'border':'0','outline':'0'}} readOnly={this.state.readOnly} className={classnames({'pliceID1':true,'ss':class1})}/>
+							<input type="text" style={{'border':'0','outline':'0'}} readOnly={this.state.readOnly} className={classnames({'pliceID1':true,'ss':class13})}/>
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<input type="text" style={{'border':'0','outline':'0'}} readOnly={this.state.readOnly} className={classnames({'pliceID2':true,'ss':class1})}/>
+							<input type="text" style={{'border':'0','outline':'0'}} readOnly={this.state.readOnly} className={classnames({'pliceID2':true,'ss':class14})}/>
 						</td>
 					</tr>
 					
@@ -280,7 +382,7 @@ class Xianchangbilu extends React.Component{
 					<tr>
 						<td>记录人</td>
 						<td colSpan='3'>
-							<input type="text" style={{'border':'0','outline':'0'}} readOnly={this.state.readOnly} className={classnames({'plicewrite':true,'ss':class1})}/>
+							<input type="text" style={{'border':'0','outline':'0'}} readOnly={this.state.readOnly} className={classnames({'plicewrite':true,'ss':class15})}/>
 						</td>
 						
 					</tr>
@@ -338,5 +440,8 @@ class Xianchangbilu extends React.Component{
 		)
 	}
 }
+
+
+
 
 export default connect(null)(Xianchangbilu)
