@@ -1,2 +1,2 @@
-const url='http://172.27.35.1/api'
+const url='http://dysoft.bclzdd.com/api'
 export {url}

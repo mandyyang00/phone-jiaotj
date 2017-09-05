@@ -18,3 +18,14 @@
 	width: 100%;
 	height: 35px;
 }
+
+/*<input type="text" style={{'border':'0','outline':'0'}}  readOnly={this.state.readOnly} className={classnames({'times':true,'ss':class10})}/>*/
+
+/*<label >男 </label><input type="radio" style={{'width':'14px','height':'25px','verticalAlign':'middle','display':'inline-block'}} name='sex' value='男'/>
+							<label style={{'marginLeft':'25%'}}>女 </label><input type="radio" style={{'width':'14px','height':'25px','verticalAlign':'middle','display':'inline-block'}} name='sex' value='女'/>*/
+
+
+.xianchangbilu textarea{
+	background-image: url('../images/1.jpg');
+	background-repeat: repeat;
+}

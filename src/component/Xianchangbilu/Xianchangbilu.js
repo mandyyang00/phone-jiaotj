@@ -6,7 +6,14 @@ import {url} from '../config'
 import axios from 'axios'
 import { connect } from 'react-redux'
 import {message} from 'antd'
+
 import classnames from 'classnames'
+import { DatePicker } from 'antd';
+import { Radio } from 'antd';
+const { MonthPicker, RangePicker } = DatePicker
+
+const RadioGroup = Radio.Group;
+
 
 
 
@@ -25,20 +32,14 @@ class Xianchangbilu extends React.Component{
 			}
 
 
-		// let idcode=document.querySelector('.idcode').value
-		// console.log(idcode)
 
-		// if(idcode.length!=0){
-		// 	this.setState({
-		// 		class2:false
-		// 	}})
-		// }
+		
 			
 	}
 	idOk(res){
 		console.log('....',res)
 		document.querySelector('.nameV').value=res.data.InvolvedName
-		document.querySelector('.sex').value=res.data.InvolvedSex
+		document.querySelector('.ant-input').value=res.data.InvolvedSex
 		document.querySelector('.idcode').value=res.data.InvolvedIDCode
 		document.querySelector('.relation').value=res.data.InvolvedRelation
 		document.querySelector('.deparment').value=res.data.InvolvedDepartment
@@ -63,19 +64,16 @@ class Xianchangbilu extends React.Component{
 
 	constructor(){
 		super()
-		let date=new Date()
-		let year=date.getFullYear()
-		let month=date.getMonth()+1
-		let day=date.getDate()
-		let hour=date.getHours()
-		let minute=date.getMinutes()
+		
 		// console.log(year)
 		this.state={
 			xianchangId:null,
 			allId:null,
-			time:`${year}-${month}-${day}`,
+			// times:document.querySelector('.ant-input').value,
 			readOnly:'readonly',
 			visibal:false,
+			value: 0,
+			times0:'',
 			
 				class1:false,
 				class2:false,
@@ -100,10 +98,21 @@ class Xianchangbilu extends React.Component{
 			
 		}
 	}
+
+
+	//填写的时间改变时，后面签名的时间也随之改变
+	onChangetime(){
+		let aa=document.querySelector('.ant-input').value
+		this.setState({
+			times0:aa
+		})
+		console.log(aa)
+	}
+
+	//基本信息填写完毕后，先保存
 	
 	onClick(){
 		let nameV=document.querySelector('.nameV').value
-		let sex=document.querySelector('.sex').value
 		let idcode=document.querySelector('.idcode').value
 		let relation=document.querySelector('.relation').value
 		let deparment=document.querySelector('.deparment').value
@@ -111,10 +120,15 @@ class Xianchangbilu extends React.Component{
 		let che=document.querySelector('.che').value
 		let chuan=document.querySelector('.chuan').value
 		let address=document.querySelector('.address').value
+		let re=/^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/
+		let reok=re.test(idcode)
+		if(reok==false){
+			document.querySelector('.idcode').value='身份证号输入错误'
+		}
 		
 			let data={
 				Name:nameV,
-				Sex:sex,
+				// Sex:sex,
 				IDCode:idcode,
 				Relation:relation,
 				TelNo:tel,
@@ -169,6 +183,8 @@ class Xianchangbilu extends React.Component{
 			})
 		}
 
+		let sex=this.state.value
+		console.log(sex)
 		
 		
 		
@@ -188,6 +204,7 @@ class Xianchangbilu extends React.Component{
 	}
 	onClickDown(){
 		let place=document.querySelector('.place').value
+		let times1=document.querySelector('.ant-input').value//第一个时间，后面签名是件应与之相同
 		let pliceman1=document.querySelector('.pliceman1').value
 		let pliceman2=document.querySelector('.pliceman2').value
 		let pliceman3=document.querySelector('.pliceman3').value
@@ -254,6 +271,8 @@ class Xianchangbilu extends React.Component{
 			})
 		}
 		
+		
+		console.log(times1)
 
 	}
 
@@ -270,6 +289,13 @@ class Xianchangbilu extends React.Component{
 		sessionStorage.setItem('allId',res.data.ID)
 	}
 
+
+	 onChange = (e) => {
+    console.log('radio checked', e.target.value);
+    this.setState({
+      value: e.target.value,
+    });
+  }
 	
 
 	render(){
@@ -295,14 +321,17 @@ class Xianchangbilu extends React.Component{
 					<tr>
 						<td>性别</td>
 						<td style={{'lineHeight':'35px'}}>
-							<label >男</label><input type="radio" style={{'width':'14px','height':'25px','verticalAlign':'middle','display':'inline-block'}} name='sex' value='男'/>
-							<label>女</label><input type="radio" style={{'width':'14px','height':'25px','verticalAlign':'middle','display':'inline-block'}} name='sex' value='女'/>
+							<RadioGroup onChange={this.onChange.bind(this)} value={this.state.value} className='sex'>
+					        <Radio value={0}>男</Radio>
+					        <Radio value={1}>女</Radio>
+					        
+					      </RadioGroup>
 						</td>
 					</tr>
 					<tr>
 						<td>身份<br/>证号</td>
 						<td>
-							<input type="text" style={{'border':'0','outline':'0'}} className={classnames({'idcode':true,'ss':class2})} value='aaaa'/>
+							<input type="text" style={{'border':'0','outline':'0'}} className={classnames({'idcode':true,'ss':class2})} />
 						</td>
 					</tr>
 					<tr>
@@ -354,13 +383,13 @@ class Xianchangbilu extends React.Component{
 					<tr>
 						<td>执法<br/>时间</td>
 						<td>
-							<input type="text" style={{'border':'0','outline':'0'}}  readOnly={this.state.readOnly} className={classnames({'times':true,'ss':class10})}/>
+							<DatePicker style={{'width':'99%','border':'0','outline':'0'}} />
 						</td>
 					</tr>
 					<tr>
-						<td rowSpan='2' style={{'width':'40px'}}>执法<br/>人员</td>
+						<td rowSpan='2' style={{'width':'40px'}} >执法<br/>人员</td>
 						<td>
-							<input type="text" style={{'border':'0','outline':'0'}} readOnly={this.state.readOnly} className={classnames({'pliceman1':true,'ss':class11})}/>
+							<input type="text" style={{'border':'0','outline':'0'}} readOnly={this.state.readOnly} className={classnames({'pliceman1':true,'ss':class11})} onChange={this.onChangetime.bind(this)}/>
 						</td>
 					</tr>
 					<td>
@@ -405,7 +434,7 @@ class Xianchangbilu extends React.Component{
 								现场人员签名：<input type="text" style={{'width':'100px','border':'0','outline':'0'}} readOnly={this.state.readOnly} className='pliceman3'/>
 							</p>
 							<p style={{'textAlign':'right','marginBottom':'20px'}}>
-								时间：<input type="text" style={{'width':'100px','border':'0','outline':'0'}} readOnly={this.state.readOnly} className='times' className='times'/>
+								时间：<input type="text" style={{'width':'100px','border':'0','outline':'0'}} readOnly={this.state.readOnly} className='times' value={this.state.times0}/>
 							</p>
 						</td>
 					</tr>
@@ -424,7 +453,7 @@ class Xianchangbilu extends React.Component{
 								<input type="text" style={{'width':'100px','border':'0','outline':'0','borderBottom':'1px solid #aaaaaa','margin':' 0  20px','lineHeight':'30px'}} readOnly={this.state.readOnly} className='pliceman5'/>
 							</p>
 							<p style={{'textAlign':'left','textIndent':'10px','marginBottom':'10px'}}>
-								    时间：<br/><input type="text" style={{'width':'100px','border':'0','outline':'0','borderBottom':'1px solid #aaaaaa','marginLeft':'30px','lineHeight':'30px'}}  readOnly={this.state.readOnly} className='times'/>
+								    时间：<br/><input type="text" style={{'width':'100px','border':'0','outline':'0','borderBottom':'1px solid #aaaaaa','marginLeft':'30px','lineHeight':'30px'}}  readOnly={this.state.readOnly} className='times'  value={this.state.times0}/>
 							</p>
 						</td>
 					</tr>
@@ -433,8 +462,7 @@ class Xianchangbilu extends React.Component{
 					<Link to='/xunwenbilu'><button onClick={this.onClickDown.bind(this)}>询问笔录</button></Link>
 					:
 					<button  onClick={this.onClickDown.bind(this)}>询问笔录</button>}
-				
-
+		
 				
 			</div>
 		)

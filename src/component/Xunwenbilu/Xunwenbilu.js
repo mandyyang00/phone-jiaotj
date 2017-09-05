@@ -11,16 +11,16 @@ import {message} from 'antd'
 class Xunwenbilu extends React.Component{
 	constructor(){
 		super()
-		let date=new Date()
-		let year=date.getFullYear()
-		let month=date.getMonth()+1
-		let day=date.getDate()
-		let hour=date.getHours()
-		let minute=date.getMinutes()
-		console.log(year)
+		// let date=new Date()
+		// let year=date.getFullYear()
+		// let month=date.getMonth()+1
+		// let day=date.getDate()
+		// let hour=date.getHours()
+		// let minute=date.getMinutes()
+		// console.log(year)
 		this.state={
 			data:null,
-			time:`${year}年${month}月${day}日${hour}时${minute}`,
+			// time:`${year}年${month}月${day}日${hour}时${minute}`,
 			visibal:false,
 			xunwenId:null
 		}
