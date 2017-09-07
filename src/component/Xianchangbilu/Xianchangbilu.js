@@ -31,12 +31,9 @@ class Xianchangbilu extends React.Component{
 			}else{
 				null
 			}
-
-
-
-		
-			
 	}
+
+
 	idOk(res){
 		console.log('....',res)
 		document.querySelector('.nameV').value=res.data.InvolvedName
@@ -65,7 +62,6 @@ class Xianchangbilu extends React.Component{
 
 	constructor(){
 		super()
-		
 		// console.log(year)
 		this.state={
 			xianchangId:null,
@@ -76,28 +72,24 @@ class Xianchangbilu extends React.Component{
 			times0:'',
 			policeman1:'',
 			policeman2:'',
-			
-				class1:false,
-				class2:false,
-				class3:false,
-				class4:false,
-				class5:false,
-				class6:false,
-				class7:false,
-				class8:false,
-				class8:false,
-				class10:false,
-				class11:false,
-				class12:false,
-				class13:false,
-				class14:false,
-				class15:false,
-				class16:false,
-
-
-			
-
-			
+			policeID1:'',
+			policeID2:'',
+			class1:false,
+			class2:false,
+			class3:false,
+			class4:false,
+			class5:false,
+			class6:false,
+			class7:false,
+			class8:false,
+			class8:false,
+			class10:false,
+			class11:false,
+			class12:false,
+			class13:false,
+			class14:false,
+			class15:false,
+			class16:false,
 		}
 	}
 
@@ -108,6 +100,7 @@ class Xianchangbilu extends React.Component{
 	
 	onClick(){
 		let nameV=document.querySelector('.nameV').value
+		let sex=this.state.value
 		let idcode=document.querySelector('.idcode').value
 		let relation=document.querySelector('.relation').value
 		let deparment=document.querySelector('.deparment').value
@@ -115,7 +108,7 @@ class Xianchangbilu extends React.Component{
 		let che=document.querySelector('.che').value
 		let chuan=document.querySelector('.chuan').value
 		let address=document.querySelector('.address').value
-		let re=/^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/
+		let re=/^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/ //判断身份证的正则表达式
 		let reok=re.test(idcode)
 		if(reok==false){
 			document.querySelector('.idcode').value='身份证号输入错误'
@@ -123,11 +116,13 @@ class Xianchangbilu extends React.Component{
 		
 			let data={
 				Name:nameV,
-				// Sex:sex,
+				Sex:sex,
 				IDCode:idcode,
 				Relation:relation,
-				TelNo:tel,
 				Department:deparment,
+				TelNo:tel,
+				CarNo:che,
+				CarModel:chuan,
 				Address:address
 			}
 			axios.post(`${url}/InvolvedService/AddInvolved`,data)
@@ -177,55 +172,50 @@ class Xianchangbilu extends React.Component{
 				class8:true
 			})
 		}
-
-		let sex=this.state.value
-		console.log(sex)
-		
-		
-		
+			
 	}
+
+	//当事人基本信息显示ok
 
 	onOk(res){
 		console.log(res)
 		this.props.dispatch({type:'GET_ID',xianchangId:res.data.ID})
 		this.setState({
 			xianchangId:res.data.ID,
-			readOnly:'',
+			readOnly:''
 		})
-		// console.log(this.state.xianchangId)
 		sessionStorage.setItem('xianchangId',res.data.ID)
 		
 		
 	}
 	onClickDown(){
 		let place=document.querySelector('.place').value
-		let times1=document.querySelector('.ant-input').value//第一个时间，后面签名是件应与之相同
-		let pliceman1=document.querySelector('.pliceman1').value
-		let pliceman2=document.querySelector('.pliceman2').value
-		let pliceman3=document.querySelector('.pliceman3').value
-		let pliceman4=document.querySelector('.pliceman4').value
-		let pliceman5=document.querySelector('.pliceman5').value
-		let pliceID1=document.querySelector('.pliceID1').value
-		let pliceID2=document.querySelector('.pliceID2').value
+		let times1=document.querySelector('.ant-input').value//第一个时间，后面签名时间应与之相同
+		let pliceman1=this.state.policeman1
+		let pliceman2=this.state.policeman2
+		let pliceID1=this.state.policeID1
+		let pliceID2=this.state.policeID1
 		let plicewrite=document.querySelector('.plicewrite').value
 		let titlecontent=document.querySelector('.titlecontent').value
 		let maincontent=document.querySelector('.maincontent').value
+		let pliceman3=document.querySelector('.pliceman3').value
+		let times=document.querySelector('.times').value
 		let about=document.querySelector('.about').value
+		let pliceman4=this.state.policeman1
+		let pliceman5=this.state.policeman2
 		let times=document.querySelector('.times').value
 		let data={
 			InvolvedID:this.state.xianchangId,
 			Place:place,
 			Enforcers1:pliceman1,
-			Certificates1:pliceID1,
 			Enforcers2:pliceman2,
+			Certificates1:pliceID1,
 			Certificates2:pliceID2,
 			Recorder:plicewrite,
 			Content:maincontent,
 			Memo:about
 			
-			
-
-		}
+	}
 		axios.post(`${url}/SceneRecordService/AddSceneRecord`,data)
 					.then(res=>this.onOkDown(res))
 					.catch(err=>console.log(err))
@@ -310,6 +300,18 @@ class Xianchangbilu extends React.Component{
    handleChange2(value){
    	this.setState({
 			policeman2:`${value}`
+		})
+		
+   }
+    handleChange3(value){
+   	this.setState({
+			policeID1:`${value}`
+		})
+		
+   }
+    handleChange4(value){
+   	this.setState({
+			policeID2:`${value}`
 		})
 		
    }
@@ -420,7 +422,7 @@ class Xianchangbilu extends React.Component{
 					<tr>
 						<td>执法<br/>时间</td>
 						<td>
-							<DatePicker style={{'width':'99%','border':'0','outline':'0'}} />
+							<DatePicker style={{'width':'99%','border':'0','outline':'0'}} className='times'/>
 						</td>
 					</tr>
 					<tr>
@@ -445,7 +447,7 @@ class Xianchangbilu extends React.Component{
 					<tr>
 						<td rowSpan='2'>执法<br/>证号</td>
 						<td>
-							<Select defaultValue="111"  style={{'width':'100%','border':'0','outline':'0'}} className='pliceID1'>
+							<Select defaultValue="111" onChange={this.handleChange3.bind(this)} style={{'width':'100%','border':'0','outline':'0'}} className='pliceID1'>
 						      <Option value="111" >111</Option>
 						      <Option value="222">222</Option>
 						      <Option value="333" >333</Option>
@@ -455,7 +457,7 @@ class Xianchangbilu extends React.Component{
 					</tr>
 					<tr>
 						<td>
-							<Select defaultValue="111"  style={{'width':'100%','border':'0','outline':'0'}} className='pliceID1'>
+							<Select defaultValue="111" onChange={this.handleChange4.bind(this)} style={{'width':'100%','border':'0','outline':'0'}} className='pliceID1'>
 						      <Option value="111" >111</Option>
 						      <Option value="222">222</Option>
 						      <Option value="333" >333</Option>
