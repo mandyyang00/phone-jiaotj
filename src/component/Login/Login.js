@@ -17,7 +17,7 @@ class Login extends React.Component{
 		super()
 		this.state={
 			visiabl:false,
-			class1:false
+			
 
 		}
 	
@@ -67,7 +67,7 @@ class Login extends React.Component{
 			console.log(res.data.Data.ID)
 					
 		}
-		this.setState({class1:'ss'})
+		
 
 
 
@@ -89,7 +89,7 @@ class Login extends React.Component{
 						<button onClick={this.onClick.bind(this)}>登录</button>
 					}
 				</div>
-				<div className={classnames({'aa': true,'ss': true})}></div>
+				
 
 			</div>
 		)

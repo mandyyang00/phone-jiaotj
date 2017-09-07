@@ -21,9 +21,11 @@ const RadioGroup = Radio.Group;
 
 
 class Xianchangbilu extends React.Component{
+
+	//如果之前填写过该笔录，那么翻过到此页时会自动请求数据
 	componentDidMount(){
-		let ID=sessionStorage.allId
-		console.log('dfgvb',ID)
+		let ID=sessionStorage.allId  					
+		// console.log('dfgvb',ID)
 		if(ID){
 			axios.post(`${url}/SceneRecordService/GetSceneRecord`,{ID:ID})
 				.then(res=>this.idOk(res))
@@ -34,42 +36,59 @@ class Xianchangbilu extends React.Component{
 	}
 
 
-	idOk(res){
+//自动请求已经填写过得数据
+
+	idOk(res){         		
 		console.log('....',res)
+		this.setState({
+			value:res.data.InvolvedSex,
+			policeman1:res.data.Enforcers1,
+			policeman2:res.data.Enforcers2,
+			policeID1:res.data.Certificates1,
+			policeID2:res.data.Certificates2,
+			times0:res.data.EnforcerSignTime.slice(0,10)
+
+		})
 		document.querySelector('.nameV').value=res.data.InvolvedName
-		document.querySelector('.ant-input').value=res.data.InvolvedSex
+		document.querySelector('.ant-input').value=this.state.times0
 		document.querySelector('.idcode').value=res.data.InvolvedIDCode
 		document.querySelector('.relation').value=res.data.InvolvedRelation
 		document.querySelector('.deparment').value=res.data.InvolvedDepartment
 		document.querySelector('.tel').value=res.data.InvolvedTelNo
 		document.querySelector('.address').value=res.data.InvolvedAddress
-		document.querySelector('.place').value=res.data.place
-		document.querySelector('.pliceman1').value=res.data.Enforcers1
-		document.querySelector('.pliceman2').value=res.data.Enforcers2
+		document.querySelector('.che').value=res.data.InvolvedCarNo
+		document.querySelector('.chuan').value=res.data.InvolvedCarModel
+
+		document.querySelector('.place').value=res.data.Place
 		document.querySelector('.pliceman3').value=res.data.InvolvedName
-		document.querySelector('.pliceman4').value=res.data.InvolvedName
-		document.querySelector('.pliceman5').value=res.data.InvolvedName
-		document.querySelector('.pliceID1').value=res.data.Certificates1
-		document.querySelector('.pliceID2').value=res.data.Certificates2
 		document.querySelector('.plicewrite').value=res.data.Recorder
-		document.querySelector('.titlecontent').value=res.data.InvolvedName
 		document.querySelector('.maincontent').value=res.data.Content
-		document.querySelector('.about').value=res.data.About
-		document.querySelector('.times').value=res.data.InvolvedName
+		document.querySelector('.about').value=res.data.Memo
+		
+	
+		
+		
+
+
+		
+
 
 			
 	}
 
+
+	//所有的state数据 
 	constructor(){
 		super()
 		// console.log(year)
 		this.state={
-			xianchangId:null,
-			allId:null,
+			xianchangId:null,		//当事人基本信息ID
+			allId:null, 			//现场笔录页ID
 			readOnly:'readonly',
-			visibal:false,
-			value: 0,
-			times0:'',
+			visibal:false, 		//页面跳转判断
+			value: 0,				//radio判断性别
+			times0:'', 
+			reok:false,				//时间
 			policeman1:'',
 			policeman2:'',
 			policeID1:'',
@@ -110,9 +129,10 @@ class Xianchangbilu extends React.Component{
 		let address=document.querySelector('.address').value
 		let re=/^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/ //判断身份证的正则表达式
 		let reok=re.test(idcode)
-		if(reok==false){
-			document.querySelector('.idcode').value='身份证号输入错误'
-		}
+		
+		// if(reok==false){
+		// 	document.querySelector('.idcode').value='身份证号输入错误'
+		// }
 		
 			let data={
 				Name:nameV,
@@ -125,11 +145,25 @@ class Xianchangbilu extends React.Component{
 				CarModel:chuan,
 				Address:address
 			}
+		if(reok==true){
 			axios.post(`${url}/InvolvedService/AddInvolved`,data)
 			.then(res=>{
 				this.onOk(res)
 			})
-			.then(err=>console.log('错误才返回',err))
+			.catch(err=>console.log('错误才返回',err))
+			this.setState({visibal:true})
+		}else{
+			message.error('身份证号输入错误')
+		}
+		// axios.post(`${url}/InvolvedService/AddInvolved`,data)
+		// 	.then(res=>{
+		// 		this.onOk(res)
+		// 	})
+		// 	.catch(err=>console.log('错误才返回',err))
+		// 	this.setState({visibal:true})
+			
+
+		
 		
 
 		if(nameV.length==0){
@@ -178,7 +212,7 @@ class Xianchangbilu extends React.Component{
 	//当事人基本信息显示ok
 
 	onOk(res){
-		console.log(res)
+		// console.log(res.data.ID)
 		this.props.dispatch({type:'GET_ID',xianchangId:res.data.ID})
 		this.setState({
 			xianchangId:res.data.ID,
@@ -188,6 +222,9 @@ class Xianchangbilu extends React.Component{
 		
 		
 	}
+
+	//此页其他信息
+
 	onClickDown(){
 		let place=document.querySelector('.place').value
 		let times1=document.querySelector('.ant-input').value//第一个时间，后面签名时间应与之相同
@@ -196,36 +233,40 @@ class Xianchangbilu extends React.Component{
 		let pliceID1=this.state.policeID1
 		let pliceID2=this.state.policeID1
 		let plicewrite=document.querySelector('.plicewrite').value
-		let titlecontent=document.querySelector('.titlecontent').value
 		let maincontent=document.querySelector('.maincontent').value
 		let pliceman3=document.querySelector('.pliceman3').value
-		let times=document.querySelector('.times').value
+		let times=document.querySelector('.ant-input').value
 		let about=document.querySelector('.about').value
 		let pliceman4=this.state.policeman1
 		let pliceman5=this.state.policeman2
-		let times=document.querySelector('.times').value
 		let data={
 			InvolvedID:this.state.xianchangId,
 			Place:place,
+			Time:times1,
 			Enforcers1:pliceman1,
 			Enforcers2:pliceman2,
 			Certificates1:pliceID1,
 			Certificates2:pliceID2,
 			Recorder:plicewrite,
 			Content:maincontent,
-			Memo:about
+			InvolvedSignTime:times1,
+			Memo:about,
+			EnforcerSign1:pliceman4,
+			EnforcerSign2:pliceman5,
+			EnforcerSignTime:times1
 			
 	}
 		axios.post(`${url}/SceneRecordService/AddSceneRecord`,data)
 					.then(res=>this.onOkDown(res))
 					.catch(err=>console.log(err))
+		console.log('hhhh',pliceman2)
 		
 		if(place.length==0){
 			this.setState({
 				class9:true
 			})
 		}
-		if(times.length==0){
+		if(times1.length==0){
 			this.setState({
 				class10:true
 			})
@@ -257,15 +298,14 @@ class Xianchangbilu extends React.Component{
 		}
 		
 		
-		console.log(times1)
+		
 
 	}
 
 
 	onOkDown(res){
-		console.log(res)
+		// console.log(res)
 		this.setState({
-			visibal:true,
 			allId:res.data.ID,
 			
 
@@ -280,43 +320,58 @@ class Xianchangbilu extends React.Component{
     this.setState({
       value: e.target.value,
     });
+    console.log(this.state.value)
+    
   }
   //选择警察select,第一个
    //填写的时间改变时，后面签名的时间也随之改变
 
   handleChange1(value){
-		// let selected=document.getElementsByTagName('Option')
-		console.log(`${value}`)
+		
+		// console.log(`${value}`)
 		this.setState({
 			policeman1:`${value}`
 		})
-		let times0=document.querySelector('.ant-input').value
-		this.setState({
-			times0:times0
+		let times0=document.querySelector('.ant-input').value    //填写的时间改变时，后面签名的时间也随之改变
+		this.setState({														//第一个签名
+			times0:times0,
+			visibal:true  				//判断是否可以到下一页
 		})
-		console.log(times0)
+		// console.log(times0)
   }
 
-   handleChange2(value){
+   handleChange2(value){							//第二个签名
    	this.setState({
 			policeman2:`${value}`
 		})
 		
    }
-    handleChange3(value){
+    handleChange3(value){						//获取第一个警察证件号
    	this.setState({
 			policeID1:`${value}`
 		})
 		
    }
-    handleChange4(value){
+    handleChange4(value){						//获取第一个警察证件号
    	this.setState({
 			policeID2:`${value}`
 		})
 		
    }
+   //判断身份证是否正确
 
-  //填写的时间改变时，后面签名的时间也随之改变
+   codeOk(){
+   	let idcode=document.querySelector('.idcode').value
+   	let re=/^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/ //判断身份证的正则表达式
+		this.setState({
+			reok:re.test(idcode)
+		})
+		if(this.state.reok){
+
+		}
+   }
+
+ 
 	// onChangetime(){
 	// 	let times0=document.querySelector('.ant-input').value
 	// 	this.setState({
@@ -406,11 +461,11 @@ class Xianchangbilu extends React.Component{
 					<tr>
 						<td>联系<br/>地址</td>
 						<td>
-							<input type="text" style={{'border':'0','outline':'0'}} className={classnames({'address':true,'ss':class8})}/>
+							<input type="text" style={{'border':'0','outline':'0'}} className={classnames({'address':true,'ss':class8})} onChange={this.codeOk.bind(this)}/>
 						</td>
 					</tr>
 					<tr >
-						<td colSpan='2'><button onClick={this.onClick.bind(this)}>保存基本信息</button>
+						<td colSpan='2'><button onClick={this.onClick.bind(this)} >保存基本信息</button>
 						</td>
 					</tr>
 					<tr>
@@ -428,7 +483,7 @@ class Xianchangbilu extends React.Component{
 					<tr>
 						<td rowSpan='2' style={{'width':'40px'}} >执法<br/>人员</td>
 						<td>
-							<Select defaultValue="lucy"  onChange={this.handleChange1.bind(this)} style={{'width':'100%','border':'0','outline':'0'}} className='pliceman1'>
+							<Select value={this.state.policeman1}  onChange={this.handleChange1.bind(this)} style={{'width':'100%','border':'0','outline':'0'}} className='pliceman1'>
 						      <Option value="jack" >Jack</Option>
 						      <Option value="lucy">Lucy</Option>
 						      <Option value="xiawang" >xiawang</Option>
@@ -437,7 +492,7 @@ class Xianchangbilu extends React.Component{
 						</td>
 					</tr>
 					<td>
-							<Select defaultValue="lucy"  onChange={this.handleChange2.bind(this)} style={{'width':'100%','border':'0','outline':'0'}} className='pliceman2'>
+							<Select value={this.state.policeman2}  onChange={this.handleChange2.bind(this)} style={{'width':'100%','border':'0','outline':'0'}} className='pliceman2'>
 						      <Option value="jack" >Jack</Option>
 						      <Option value="lucy">Lucy</Option>
 						      <Option value="xiawang" >xiawang</Option>
@@ -447,7 +502,7 @@ class Xianchangbilu extends React.Component{
 					<tr>
 						<td rowSpan='2'>执法<br/>证号</td>
 						<td>
-							<Select defaultValue="111" onChange={this.handleChange3.bind(this)} style={{'width':'100%','border':'0','outline':'0'}} className='pliceID1'>
+							<Select value={this.state.policeID1} onChange={this.handleChange3.bind(this)} style={{'width':'100%','border':'0','outline':'0'}} className='pliceID1'>
 						      <Option value="111" >111</Option>
 						      <Option value="222">222</Option>
 						      <Option value="333" >333</Option>
@@ -457,7 +512,7 @@ class Xianchangbilu extends React.Component{
 					</tr>
 					<tr>
 						<td>
-							<Select defaultValue="111" onChange={this.handleChange4.bind(this)} style={{'width':'100%','border':'0','outline':'0'}} className='pliceID1'>
+							<Select value={this.state.policeID2} onChange={this.handleChange4.bind(this)} style={{'width':'100%','border':'0','outline':'0'}} className='pliceID1'>
 						      <Option value="111" >111</Option>
 						      <Option value="222">222</Option>
 						      <Option value="333" >333</Option>
@@ -481,11 +536,10 @@ class Xianchangbilu extends React.Component{
 					<tr>
 						<td colSpan='4'>
 							<p style={{'textAlign':'left','textIndent':'10px'}}>
-								在检查中发现：<input type="text" style={{'width':'50%','border':'0','outline':'0','borderBottom':'1px solid #aaaaaa'}} readOnly={this.state.readOnly} className='titlecontent'/>
+								在检查中发现：
 							</p>
-							<textarea name="" id="" cols="30" rows="4"
-									 style={{'width':'90%','border':'0','outline':'0','borderBottom':'1px solid #aaaaaa'}} readOnly={this.state.readOnly} className='maincontent'>
-							</textarea>
+							<div className='maincontent' style={{'width':'240px','min-height':'100px','margin':'0 auto','lineHeight':'40px','border':'0','outline':'0'}} readOnly={this.state.readOnly} contentEditable='true'>
+							</div>
 							<p style={{'textAlign':'left','textIndent':'10px'}}>
 								上述笔录我已经看过（或已向我宣读过），情况属实无误。
 							</p>
@@ -493,7 +547,7 @@ class Xianchangbilu extends React.Component{
 								现场人员签名：<input type="text" style={{'width':'100px','border':'0','outline':'0'}} readOnly={this.state.readOnly} className='pliceman3'/>
 							</p>
 							<p style={{'textAlign':'right','marginBottom':'20px'}}>
-								时间：<input type="text" style={{'width':'100px','border':'0','outline':'0'}} readOnly={this.state.readOnly} className='times' value={this.state.times0}/>
+								时间：<input type="text" style={{'width':'100px','border':'0','outline':'0'}} readOnly='readonly' className='times' value={this.state.times0}/>
 							</p>
 						</td>
 					</tr>
@@ -512,7 +566,7 @@ class Xianchangbilu extends React.Component{
 								<input type="text" style={{'width':'100px','border':'0','outline':'0','borderBottom':'1px solid #aaaaaa','margin':' 0  20px','lineHeight':'30px'}} readOnly={this.state.readOnly} className='pliceman5' value={this.state.policeman2}/>
 							</p>
 							<p style={{'textAlign':'left','textIndent':'10px','marginBottom':'10px'}}>
-								    时间：<br/><input type="text" style={{'width':'100px','border':'0','outline':'0','borderBottom':'1px solid #aaaaaa','marginLeft':'30px','lineHeight':'30px'}}  readOnly={this.state.readOnly} className='times'  value={this.state.times0}/>
+								    时间：<br/><input type="text" style={{'width':'100px','border':'0','outline':'0','borderBottom':'1px solid #aaaaaa','marginLeft':'30px','lineHeight':'30px'}}  readOnly='readonly' className='times'  value={this.state.times0}/>
 							</p>
 						</td>
 					</tr>

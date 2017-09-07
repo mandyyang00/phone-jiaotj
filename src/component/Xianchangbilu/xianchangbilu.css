@@ -25,7 +25,7 @@
 							<label style={{'marginLeft':'25%'}}>女 </label><input type="radio" style={{'width':'14px','height':'25px','verticalAlign':'middle','display':'inline-block'}} name='sex' value='女'/>*/
 
 
-.xianchangbilu textarea{
+.xianchangbilu .maincontent{
 	background-image: url('../images/1.jpg');
 	background-repeat: repeat;
 }
