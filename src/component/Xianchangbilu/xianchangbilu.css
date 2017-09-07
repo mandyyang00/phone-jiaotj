@@ -29,3 +29,13 @@
 	background-image: url('../images/1.jpg');
 	background-repeat: repeat;
 }
+
+/*<input type="text" style={{'border':'0','outline':'0'}} readOnly={this.state.readOnly} className={classnames({'pliceman1':true,'ss':class11})} onChange={this.onChangetime.bind(this)}/>*/
+/*.xianchangbilu .ant-select-selection-selected-value{
+	text-align: center;
+}
+.xianchangbilu .ant-select-selection__rendered{
+	text-align: center;
+}*/
+
+/*<input type="text" style={{'border':'0','outline':'0'}} readOnly={this.state.readOnly} className={classnames({'pliceID1':true,'ss':class13})}/>*/

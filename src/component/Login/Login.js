@@ -60,7 +60,7 @@ class Login extends React.Component{
 		}else if(res.data.Code===1){
 			message.error(res.data.Message)
 		}else if(res.data.Code===2){
-			console.log(res)
+			
 			this.setState({visibal:true})
 			store.dispatch({type:'LOGIN',userId:res.data.Data.ID})
 			sessionStorage.setItem('userId',res.data.Data.ID)

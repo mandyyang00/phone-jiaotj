@@ -10,8 +10,9 @@ import {message} from 'antd'
 import classnames from 'classnames'
 import { DatePicker } from 'antd';
 import { Radio } from 'antd';
+import { Select } from 'antd';
+const Option = Select.Option;
 const { MonthPicker, RangePicker } = DatePicker
-
 const RadioGroup = Radio.Group;
 
 
@@ -69,11 +70,12 @@ class Xianchangbilu extends React.Component{
 		this.state={
 			xianchangId:null,
 			allId:null,
-			// times:document.querySelector('.ant-input').value,
 			readOnly:'readonly',
 			visibal:false,
 			value: 0,
 			times0:'',
+			policeman1:'',
+			policeman2:'',
 			
 				class1:false,
 				class2:false,
@@ -100,14 +102,7 @@ class Xianchangbilu extends React.Component{
 	}
 
 
-	//填写的时间改变时，后面签名的时间也随之改变
-	onChangetime(){
-		let aa=document.querySelector('.ant-input').value
-		this.setState({
-			times0:aa
-		})
-		console.log(aa)
-	}
+	
 
 	//基本信息填写完毕后，先保存
 	
@@ -289,13 +284,55 @@ class Xianchangbilu extends React.Component{
 		sessionStorage.setItem('allId',res.data.ID)
 	}
 
-
+ //选择男女
 	 onChange = (e) => {
-    console.log('radio checked', e.target.value);
+    // console.log('radio checked', e.target.value);
     this.setState({
       value: e.target.value,
     });
   }
+  //选择警察select,第一个
+   //填写的时间改变时，后面签名的时间也随之改变
+
+  handleChange1(value){
+		// let selected=document.getElementsByTagName('Option')
+		console.log(`${value}`)
+		this.setState({
+			policeman1:`${value}`
+		})
+		let times0=document.querySelector('.ant-input').value
+		this.setState({
+			times0:times0
+		})
+		console.log(times0)
+  }
+
+   handleChange2(value){
+   	this.setState({
+			policeman2:`${value}`
+		})
+		
+   }
+
+  //填写的时间改变时，后面签名的时间也随之改变
+	// onChangetime(){
+	// 	let times0=document.querySelector('.ant-input').value
+	// 	this.setState({
+	// 		times0:times0
+	// 	})
+	// 	console.log(times0)
+	// }
+
+
+
+	//执法人员名字选定后，后面的签名也自行ok
+  // nameOk(){
+  // 	let policeman1=document.querySelector('.police ant-select-selection-selected-value').value
+		// this.setState({
+		// 	policeman1:policeman1
+		// })
+		// console.log(policeman1)
+  // }
 	
 
 	render(){
@@ -389,21 +426,41 @@ class Xianchangbilu extends React.Component{
 					<tr>
 						<td rowSpan='2' style={{'width':'40px'}} >执法<br/>人员</td>
 						<td>
-							<input type="text" style={{'border':'0','outline':'0'}} readOnly={this.state.readOnly} className={classnames({'pliceman1':true,'ss':class11})} onChange={this.onChangetime.bind(this)}/>
+							<Select defaultValue="lucy"  onChange={this.handleChange1.bind(this)} style={{'width':'100%','border':'0','outline':'0'}} className='pliceman1'>
+						      <Option value="jack" >Jack</Option>
+						      <Option value="lucy">Lucy</Option>
+						      <Option value="xiawang" >xiawang</Option>
+						      <Option value="Yiminghe">yiminghe</Option>
+						   </Select>
 						</td>
 					</tr>
 					<td>
-							<input type="text" style={{'border':'0','outline':'0'}} readOnly={this.state.readOnly} className={classnames({'pliceman2':true,'ss':class12})}/>
+							<Select defaultValue="lucy"  onChange={this.handleChange2.bind(this)} style={{'width':'100%','border':'0','outline':'0'}} className='pliceman2'>
+						      <Option value="jack" >Jack</Option>
+						      <Option value="lucy">Lucy</Option>
+						      <Option value="xiawang" >xiawang</Option>
+						      <Option value="Yiminghe">yiminghe</Option>
+						   </Select>
 					</td>
 					<tr>
 						<td rowSpan='2'>执法<br/>证号</td>
 						<td>
-							<input type="text" style={{'border':'0','outline':'0'}} readOnly={this.state.readOnly} className={classnames({'pliceID1':true,'ss':class13})}/>
+							<Select defaultValue="111"  style={{'width':'100%','border':'0','outline':'0'}} className='pliceID1'>
+						      <Option value="111" >111</Option>
+						      <Option value="222">222</Option>
+						      <Option value="333" >333</Option>
+						      <Option value="444">444</Option>
+						   </Select>
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<input type="text" style={{'border':'0','outline':'0'}} readOnly={this.state.readOnly} className={classnames({'pliceID2':true,'ss':class14})}/>
+							<Select defaultValue="111"  style={{'width':'100%','border':'0','outline':'0'}} className='pliceID1'>
+						      <Option value="111" >111</Option>
+						      <Option value="222">222</Option>
+						      <Option value="333" >333</Option>
+						      <Option value="444">444</Option>
+						   </Select>
 						</td>
 					</tr>
 					
@@ -449,8 +506,8 @@ class Xianchangbilu extends React.Component{
 							<p style={{'textAlign':'left','textIndent':'10px','marginBottom':'10px'}} >
 								执法人员签名：
 								<br/>
-								<input type="text" style={{'width':'100px','border':'0','outline':'0','borderBottom':'1px solid #aaaaaa','marginLeft':'30px','lineHeight':'30px'}} readOnly={this.state.readOnly} className='pliceman4'/>
-								<input type="text" style={{'width':'100px','border':'0','outline':'0','borderBottom':'1px solid #aaaaaa','margin':' 0  20px','lineHeight':'30px'}} readOnly={this.state.readOnly} className='pliceman5'/>
+								<input type="text" style={{'width':'100px','border':'0','outline':'0','borderBottom':'1px solid #aaaaaa','marginLeft':'30px','lineHeight':'30px'}} readOnly={this.state.readOnly} className='pliceman4' value={this.state.policeman1}/>
+								<input type="text" style={{'width':'100px','border':'0','outline':'0','borderBottom':'1px solid #aaaaaa','margin':' 0  20px','lineHeight':'30px'}} readOnly={this.state.readOnly} className='pliceman5' value={this.state.policeman2}/>
 							</p>
 							<p style={{'textAlign':'left','textIndent':'10px','marginBottom':'10px'}}>
 								    时间：<br/><input type="text" style={{'width':'100px','border':'0','outline':'0','borderBottom':'1px solid #aaaaaa','marginLeft':'30px','lineHeight':'30px'}}  readOnly={this.state.readOnly} className='times'  value={this.state.times0}/>
