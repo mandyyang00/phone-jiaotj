@@ -15,7 +15,7 @@ class List extends React.Component{
 															  //userId    登录人员的ID
 
 
-		sessionStorage.setItem('Deparment':'')
+		sessionStorage.setItem('Deparment','')
 	}
 
 

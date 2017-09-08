@@ -10,7 +10,7 @@ import { Select } from 'antd';
 import { DatePicker } from 'antd';
 import classnames from 'classnames'
 const Option = Select.Option;
-
+const { MonthPicker, RangePicker } = DatePicker
 
 
 class Xunwenbilu extends React.Component{
@@ -26,6 +26,7 @@ class Xunwenbilu extends React.Component{
     		endOpen: false,
     		seconds:'',
     		askman:'',
+    		whiteman:'',
     		name1:'',
     		name2:'',
     		codeid1:'',
@@ -41,7 +42,8 @@ class Xunwenbilu extends React.Component{
 
 	handleChange1(value){							
    	this.setState({
-			seconds:`${value}`
+			seconds:`${value}`,
+			visibal:true
 		})
 		
    }
@@ -87,24 +89,14 @@ class Xunwenbilu extends React.Component{
 		})
 		
    }
+  
    handleChange9(value){							
-   	this.setState({
-			nametime1:`${value}`
-		})
-		
-   }
-   handleChange10(value){							
    	this.setState({
 			name4:`${value}`
 		})
 		
    }
-   handleChange10(value){							
-   	this.setState({
-			nametime2:`${value}`
-		})
-		
-   }
+  
 
 	componentDidMount(){
 		let ID=sessionStorage.xianchangId
@@ -129,35 +121,52 @@ class Xunwenbilu extends React.Component{
 			data:res.data
 		})
 	}
+
+
 	idOk(res){
 		console.log('sss',res)
-		document.querySelector('.seconds').value=res.data.InvolvedName
+		this.setState({
+			startValue:res.data.BetweenBegin,
+    		endValue:res.data.BetweenEnd,
+    		seconds:res.data.Times,
+    		askman:res.data.Asker1,
+			whiteman:res.data.Asker2,
+    		name1:res.data.Asker1Sign,
+    		name2:res.data.Asker2Sign,
+    		codeid1:res.data.Certificates1,
+    		codeid2:res.data.Certificates2,
+    		name3:res.data.Asker1Sign,
+    		nametime1:res.data.AskerSignTime,
+    		name4:res.data.InvolvedSign,
+    		nametime2:res.data.InvolvedSignTime
+
+		})
+		document.querySelector('.time1 .ant-input').value=this.state.BetweenBegin
+		document.querySelector('.time2 .ant-input').value=this.state.BetweenEnd
+		document.querySelector('.askman').value=this.state.Asker1
+		document.querySelector('.whiteman').value=this.state.Asker2
+		document.querySelector('.name1').value=this.state.Asker1Sign
+		// document.querySelector('.start').value=res.data.BetweenBegin
+		// document.querySelector('.start').value=res.data.BetweenBegin
+		// document.querySelector('.start').value=res.data.BetweenBegin
+		// document.querySelector('.start').value=res.data.BetweenBegin
+		// document.querySelector('.start').value=res.data.BetweenBegin
+		// document.querySelector('.start').value=res.data.BetweenBegin
+		// document.querySelector('.start').value=res.data.BetweenBegin
+		// document.querySelector('.start').value=res.data.BetweenBegin
+
+
 		document.querySelector('.place').value=res.data.Place
-		document.querySelector('.askman').value=res.data.InvolvedIDCode
-		document.querySelector('.whiteman').value=res.data.InvolvedRelation
-		document.querySelector('.beixunwenren').value=res.data.InvolvedName
-		document.querySelector('.anjianguanxi').value=res.data.InvolvedRelation
-		document.querySelector('.sex').value=res.data.InvolvedSex
-		document.querySelector('.old').value=res.data.InvolvedID
-		document.querySelector('.codeid').value=res.data.InvolvedIDCode
-		document.querySelector('.tel').value=res.data.InvolvedTelNo
-		document.querySelector('.department').value=res.data.InvolvedDepartment
-		document.querySelector('.address').value=res.data.InvolvedAddress
 		document.querySelector('.who').value=res.data.Department
-		document.querySelector('.name1').value=res.data.Asker1
-		document.querySelector('.name2').value=res.data.Asker2
-		document.querySelector('.codeid1').value=res.data.Certificates1
-		document.querySelector('.codeid2').value=res.data.Certificates2
-		document.querySelector('.ask').value=res.data.InvolvedID
-		document.querySelector('.answer').value=res.data.InvolvedID
-		document.querySelector('.name3').value=res.data.Asker1Sign
-		document.querySelector('.nametime1').value=res.data.Times
-		document.querySelector('.name4').value=res.data.Asker2Sign
-		document.querySelector('.nametime2').value=res.data.AskerSignTime
-		document.querySelector('.about').value=res.data.InvolvedID
+		document.querySelector('.ask').value=res.data.AskContent 
+		document.querySelector('.answer').value=res.data.AnswerContent
+		document.querySelector('.about').value=res.data.Memo
 
 	}
 	onOkDown(){
+		let seconds=this.state.seconds
+		let start=this.state.startValue
+		let end=this.state.endValue
 		let place=document.querySelector('.place').value
 		let askman=this.state.askman
 		let whiteman=this.state.whiteman
@@ -168,25 +177,32 @@ class Xunwenbilu extends React.Component{
 		let codeid2=this.state.codeid2
 		let ask=document.querySelector('.ask').innerText
 		let answer=document.querySelector('.answer').innerText
-		let nametime1=this.state.nametime1
-		let nametime2=this.state.nametime2
+		let name3=this.state.name3
+		let name4=this.state.name4
+		let nametime1=document.querySelector('.time1 .ant-input').value
+		let nametime2=document.querySelector('.time2 .ant-input').value
 		let about=document.querySelector('.about').value
 		let data={
+			BetweenBegin:start,
+			BetweenEnd:end,
+			Times:seconds,
 			Place:place,
 			Asker1:askman,
 			Asker2:whiteman,
-			InvolvedID:sessionStorage.xianchangId,
-			Department:who,
+			Department:sessionStorage.Department,
+			Asker1:name1,
+			Asker2:name2,
 			Certificates1:codeid1,
 			Certificates2:codeid2,
-			Asker1:name1,
-			Asker1:name2,
 			AskContent:ask,
 			AnswerContent:answer,
-			Memo:about
-
-
-		}
+			Asker1Sign:name3,
+			AskerSignTime:nametime1,
+			InvolvedSign:name4,
+			InvolvedSignTime:nametime1,
+			Memo:about,
+			InvolvedID:sessionStorage.xianchangId
+	}
 		
 			axios.post(`${url}/AskRecordService/AddAskRecord`,data)
 				.then(res=>this.handleOk(res))
@@ -461,12 +477,7 @@ class Xunwenbilu extends React.Component{
 							<td colSpan='3'>
 								
 
-								<Select  style={{'width':'100%','border':'0','outline':'0'}} className='nametime1' value={this.state.nametime1} onChange={this.handleChange9.bind(this)}>
-								      <Option value="1" >111111111111</Option>
-								      <Option value="2">2</Option>
-								      <Option value="3" >3</Option>
-								      <Option value="4">4</Option>
-								   </Select>
+								<DatePicker style={{'width':'99%','border':'0','outline':'0'}} className='time1'/>
 							</td>
 						</tr>
 
@@ -475,7 +486,7 @@ class Xunwenbilu extends React.Component{
 							<td colSpan='3'>
 								
 
-								<Select  style={{'width':'100%','border':'0','outline':'0'}} className='name4'value={this.state.name4} onChange={this.handleChange10.bind(this)}>
+								<Select  style={{'width':'100%','border':'0','outline':'0'}} className='name4'value={this.state.name4} onChange={this.handleChange9.bind(this)}>
 								      <Option value="1" >111111111111</Option>
 								      <Option value="2">2</Option>
 								      <Option value="3" >3</Option>
@@ -488,12 +499,7 @@ class Xunwenbilu extends React.Component{
 							<td colSpan='3'>
 								
 
-								<Select  style={{'width':'100%','border':'0','outline':'0'}} className='nametime2' value={this.state.nametime2} onChange={this.handleChange11.bind(this)}>
-								      <Option value="1" >111111111111</Option>
-								      <Option value="2">2</Option>
-								      <Option value="3" >3</Option>
-								      <Option value="4">4</Option>
-								   </Select>
+								<DatePicker style={{'width':'99%','border':'0','outline':'0'}} className='time2'/>
 							</td>
 						</tr>
 						

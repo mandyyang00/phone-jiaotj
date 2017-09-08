@@ -308,7 +308,7 @@ class Xianchangbilu extends React.Component{
 
 
 	onOkDown(res){
-		// console.log(res)
+		console.log(res)
 		this.setState({
 			allId:res.data.ID,
 			
@@ -349,11 +349,21 @@ class Xianchangbilu extends React.Component{
    	this.setState({
 			policeman2:`${value}`
 		})
+		let times0=document.querySelector('.ant-input').value    //填写的时间改变时，后面签名的时间也随之改变
+		this.setState({														//第一个签名
+			times0:times0,
+			visibal:true  				//判断是否可以到下一页
+		})
 		
    }
     handleChange3(value){						//获取第一个警察证件号
    	this.setState({
 			policeID1:`${value}`
+		})
+		let times0=document.querySelector('.ant-input').value    //填写的时间改变时，后面签名的时间也随之改变
+		this.setState({														//第一个签名
+			times0:times0,
+			visibal:true  				//判断是否可以到下一页
 		})
 		
    }
@@ -487,7 +497,7 @@ class Xianchangbilu extends React.Component{
 					</tr>
 					<tr>
 						<td rowSpan='2' style={{'width':'40px'}} >执法<br/>人员</td>
-						<td>
+						<td >
 							<Select value={this.state.policeman1}  onChange={this.handleChange1.bind(this)} style={{'width':'100%','border':'0','outline':'0'}} className='pliceman1'>
 						      <Option value="jack" >Jack</Option>
 						      <Option value="lucy">Lucy</Option>
@@ -516,8 +526,8 @@ class Xianchangbilu extends React.Component{
 						</td>
 					</tr>
 					<tr>
-						<td>
-							<Select value={this.state.policeID2} onChange={this.handleChange4.bind(this)} style={{'width':'100%','border':'0','outline':'0'}} className='pliceID1'>
+						<td >
+							<Select value={this.state.policeID2} onChange={this.handleChange4.bind(this)} style={{'width':'100%','border':'0','outline':'0'}} className='pliceID1' >
 						      <Option value="111" >111</Option>
 						      <Option value="222">222</Option>
 						      <Option value="333" >333</Option>
