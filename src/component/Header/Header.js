@@ -11,6 +11,7 @@ class Header extends React.Component{
 		sessionStorage.setItem('lianId','')
 		sessionStorage.setItem('xianchangId','')
 		sessionStorage.setItem('xunwenId','')
+		sessionStorage.setItem('Deparment','')
 	}
 	
 	render(){

@@ -39,3 +39,7 @@
 }*/
 
 /*<input type="text" style={{'border':'0','outline':'0'}} readOnly={this.state.readOnly} className={classnames({'pliceID1':true,'ss':class13})}/>*/
+.ant-calendar-picker-input .ant-input{
+	border:0;
+	outline: 0;
+}

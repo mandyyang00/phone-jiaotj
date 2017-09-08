@@ -10,10 +10,29 @@
 }
 .xunwenbilu table td{
 	border:1px solid #aaaaaa;
-	height: 30px;
+	height: 40px;
 	text-align: center
 }
 .xunwenbilu table input{
 	width: 20%;
 	
+}
+.xunwenbilu p{
+	line-height: 35px;
+}
+.ant-select-selection__rendered{
+	border: 0;
+	outline: 0
+}
+.ant-select-selection{
+	border: 0;
+	outline: 0
+}
+
+.xunwenbilu .ask ,.xunwenbilu .answer{
+	background-image: url('../images/1.jpg');
+	background-repeat: repeat;
+}
+.xunwenbilu .ant-input{
+	width: 100%;
 }

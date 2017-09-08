@@ -6,7 +6,6 @@ import {url} from '../config'
 import axios from 'axios'
 import { connect } from 'react-redux'
 import {message} from 'antd'
-
 import classnames from 'classnames'
 import { DatePicker } from 'antd';
 import { Radio } from 'antd';
@@ -50,7 +49,7 @@ class Xianchangbilu extends React.Component{
 
 		})
 		document.querySelector('.nameV').value=res.data.InvolvedName
-		document.querySelector('.ant-input').value=this.state.times0
+		
 		document.querySelector('.idcode').value=res.data.InvolvedIDCode
 		document.querySelector('.relation').value=res.data.InvolvedRelation
 		document.querySelector('.deparment').value=res.data.InvolvedDepartment
@@ -62,8 +61,9 @@ class Xianchangbilu extends React.Component{
 		document.querySelector('.place').value=res.data.Place
 		document.querySelector('.pliceman3').value=res.data.InvolvedName
 		document.querySelector('.plicewrite').value=res.data.Recorder
-		document.querySelector('.maincontent').value=res.data.Content
+		document.querySelector('.maincontent').innerText=res.data.Content
 		document.querySelector('.about').value=res.data.Memo
+		document.querySelector('.ant-input').value=this.state.times0.slice(0,10)
 		
 	
 		
@@ -84,7 +84,6 @@ class Xianchangbilu extends React.Component{
 		this.state={
 			xianchangId:null,		//当事人基本信息ID
 			allId:null, 			//现场笔录页ID
-			readOnly:'readonly',
 			visibal:false, 		//页面跳转判断
 			value: 0,				//radio判断性别
 			times0:'', 
@@ -216,7 +215,7 @@ class Xianchangbilu extends React.Component{
 		this.props.dispatch({type:'GET_ID',xianchangId:res.data.ID})
 		this.setState({
 			xianchangId:res.data.ID,
-			readOnly:''
+			
 		})
 		sessionStorage.setItem('xianchangId',res.data.ID)
 		
@@ -233,7 +232,7 @@ class Xianchangbilu extends React.Component{
 		let pliceID1=this.state.policeID1
 		let pliceID2=this.state.policeID1
 		let plicewrite=document.querySelector('.plicewrite').value
-		let maincontent=document.querySelector('.maincontent').value
+		let maincontent=document.querySelector('.maincontent').innerText
 		let pliceman3=document.querySelector('.pliceman3').value
 		let times=document.querySelector('.ant-input').value
 		let about=document.querySelector('.about').value
@@ -256,10 +255,11 @@ class Xianchangbilu extends React.Component{
 			EnforcerSignTime:times1
 			
 	}
+	console.log(maincontent)
 		axios.post(`${url}/SceneRecordService/AddSceneRecord`,data)
 					.then(res=>this.onOkDown(res))
 					.catch(err=>console.log(err))
-		console.log('hhhh',pliceman2)
+		console.log('hhhh',data)
 		
 		if(place.length==0){
 			this.setState({
@@ -297,7 +297,11 @@ class Xianchangbilu extends React.Component{
 			})
 		}
 		
-		
+		   //填写的时间改变时，后面签名的时间也随之改变
+		this.setState({														//第一个签名
+			times0:times1,
+			 				
+		})
 		
 
 	}
@@ -319,6 +323,7 @@ class Xianchangbilu extends React.Component{
     // console.log('radio checked', e.target.value);
     this.setState({
       value: e.target.value,
+      visibal:true  //判断是否可以到下一页
     });
     console.log(this.state.value)
     
@@ -471,13 +476,13 @@ class Xianchangbilu extends React.Component{
 					<tr>
 						<td>执法<br/>地点</td>
 						<td>
-							<input type="text" style={{'border':'0','outline':'0'}}  readOnly={this.state.readOnly} className={classnames({'place':true,'ss':class9})}/>
+							<input type="text" style={{'border':'0','outline':'0'}} className={classnames({'place':true,'ss':class9})}/>
 						</td>
 					</tr>
 					<tr>
 						<td>执法<br/>时间</td>
 						<td>
-							<DatePicker style={{'width':'99%','border':'0','outline':'0'}} className='times'/>
+							<DatePicker style={{'width':'99%','border':'0','outline':'0'}}/>
 						</td>
 					</tr>
 					<tr>
@@ -525,7 +530,7 @@ class Xianchangbilu extends React.Component{
 					<tr>
 						<td>记录人</td>
 						<td colSpan='3'>
-							<input type="text" style={{'border':'0','outline':'0'}} readOnly={this.state.readOnly} className={classnames({'plicewrite':true,'ss':class15})}/>
+							<input type="text" style={{'border':'0','outline':'0'}} className={classnames({'plicewrite':true,'ss':class15})}/>
 						</td>
 						
 					</tr>
@@ -538,23 +543,23 @@ class Xianchangbilu extends React.Component{
 							<p style={{'textAlign':'left','textIndent':'10px'}}>
 								在检查中发现：
 							</p>
-							<div className='maincontent' style={{'width':'240px','min-height':'100px','margin':'0 auto','lineHeight':'40px','border':'0','outline':'0'}} readOnly={this.state.readOnly} contentEditable='true'>
+							<div className='maincontent' style={{'width':'240px','min-height':'100px','margin':'0 auto','lineHeight':'40px','border':'0','outline':'0','textAlign':'left','textIndent':'30px'}}  contentEditable='true'>
 							</div>
 							<p style={{'textAlign':'left','textIndent':'10px'}}>
 								上述笔录我已经看过（或已向我宣读过），情况属实无误。
 							</p>
 							<p style={{'textAlign':'right'}}>
-								现场人员签名：<input type="text" style={{'width':'100px','border':'0','outline':'0'}} readOnly={this.state.readOnly} className='pliceman3'/>
+								现场人员签名：<input type="text" style={{'width':'100px','border':'0','outline':'0'}}  className='pliceman3'/>
 							</p>
 							<p style={{'textAlign':'right','marginBottom':'20px'}}>
-								时间：<input type="text" style={{'width':'100px','border':'0','outline':'0'}} readOnly='readonly' className='times' value={this.state.times0}/>
+								时间：<input type="text" style={{'width':'100px','border':'0','outline':'0'}} className='times' value={this.state.times0} readOnly='readonly'/>
 							</p>
 						</td>
 					</tr>
 					<tr>
 						<td>备注</td>
 						<td colSpan='3'>
-							<input type="text" style={{'width':'90%','border':'0','outline':'0'}} readOnly={this.state.readOnly} className='about'/>
+							<input type="text" style={{'width':'90%','border':'0','outline':'0'}} className='about'/>
 						</td>
 					</tr>
 					<tr>
@@ -562,8 +567,8 @@ class Xianchangbilu extends React.Component{
 							<p style={{'textAlign':'left','textIndent':'10px','marginBottom':'10px'}} >
 								执法人员签名：
 								<br/>
-								<input type="text" style={{'width':'100px','border':'0','outline':'0','borderBottom':'1px solid #aaaaaa','marginLeft':'30px','lineHeight':'30px'}} readOnly={this.state.readOnly} className='pliceman4' value={this.state.policeman1}/>
-								<input type="text" style={{'width':'100px','border':'0','outline':'0','borderBottom':'1px solid #aaaaaa','margin':' 0  20px','lineHeight':'30px'}} readOnly={this.state.readOnly} className='pliceman5' value={this.state.policeman2}/>
+								<input type="text" style={{'width':'100px','border':'0','outline':'0','borderBottom':'1px solid #aaaaaa','marginLeft':'30px','lineHeight':'30px'}}  className='pliceman4' value={this.state.policeman1}/>
+								<input type="text" style={{'width':'100px','border':'0','outline':'0','borderBottom':'1px solid #aaaaaa','margin':' 0  20px','lineHeight':'30px'}}  className='pliceman5' value={this.state.policeman2}/>
 							</p>
 							<p style={{'textAlign':'left','textIndent':'10px','marginBottom':'10px'}}>
 								    时间：<br/><input type="text" style={{'width':'100px','border':'0','outline':'0','borderBottom':'1px solid #aaaaaa','marginLeft':'30px','lineHeight':'30px'}}  readOnly='readonly' className='times'  value={this.state.times0}/>

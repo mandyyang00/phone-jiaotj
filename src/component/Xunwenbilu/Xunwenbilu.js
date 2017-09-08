@@ -6,25 +6,106 @@ import axios from 'axios'
 import { connect } from 'react-redux'
 import {Link} from 'react-router-dom'
 import {message} from 'antd'
+import { Select } from 'antd';
+import { DatePicker } from 'antd';
+import classnames from 'classnames'
+const Option = Select.Option;
+
 
 
 class Xunwenbilu extends React.Component{
 	constructor(){
 		super()
-		// let date=new Date()
-		// let year=date.getFullYear()
-		// let month=date.getMonth()+1
-		// let day=date.getDate()
-		// let hour=date.getHours()
-		// let minute=date.getMinutes()
-		// console.log(year)
+		
 		this.state={
 			data:null,
-			// time:`${year}年${month}月${day}日${hour}时${minute}`,
 			visibal:false,
-			xunwenId:null
+			xunwenId:null,
+			startValue: null,
+    		endValue: null,
+    		endOpen: false,
+    		seconds:'',
+    		askman:'',
+    		name1:'',
+    		name2:'',
+    		codeid1:'',
+    		codeid2:'',
+    		name3:'',
+    		nametime1:'',
+    		name4:'',
+    		nametime2:''
+
 		}
 	}
+
+
+	handleChange1(value){							
+   	this.setState({
+			seconds:`${value}`
+		})
+		
+   }
+   handleChange2(value){							
+   	this.setState({
+			askman:`${value}`
+		})
+		
+   }
+   handleChange3(value){							
+   	this.setState({
+			whiteman:`${value}`
+		})
+		
+   }
+   handleChange4(value){							
+   	this.setState({
+			name1:`${value}`
+		})
+		
+   }
+   handleChange5(value){							
+   	this.setState({
+			name2:`${value}`
+		})
+		
+   }
+   handleChange6(value){							
+   	this.setState({
+			codeid1:`${value}`
+		})
+		
+   }
+   handleChange7(value){							
+   	this.setState({
+			codeid2:`${value}`
+		})
+		
+   }
+   handleChange8(value){							
+   	this.setState({
+			name3:`${value}`
+		})
+		
+   }
+   handleChange9(value){							
+   	this.setState({
+			nametime1:`${value}`
+		})
+		
+   }
+   handleChange10(value){							
+   	this.setState({
+			name4:`${value}`
+		})
+		
+   }
+   handleChange10(value){							
+   	this.setState({
+			nametime2:`${value}`
+		})
+		
+   }
+
 	componentDidMount(){
 		let ID=sessionStorage.xianchangId
 		console.log(ID)
@@ -78,17 +159,17 @@ class Xunwenbilu extends React.Component{
 	}
 	onOkDown(){
 		let place=document.querySelector('.place').value
-		let askman=document.querySelector('.askman').value
-		let whiteman=document.querySelector('.whiteman').value
+		let askman=this.state.askman
+		let whiteman=this.state.whiteman
 		let who=document.querySelector('.who').value
-		let name1=document.querySelector('.name1').value
-		let name2=document.querySelector('.name2').value
-		let codeid1=document.querySelector('.codeid1').value
-		let codeid2=document.querySelector('.codeid2').value
-		let ask=document.querySelector('.ask').value
-		let answer=document.querySelector('.answer').value
-		let nametime1=document.querySelector('.nametime1').value
-		let nametime2=document.querySelector('.nametime2').value
+		let name1=this.state.name1
+		let name2=this.state.name2
+		let codeid1=this.state.codeid1
+		let codeid2=this.state.codeid2
+		let ask=document.querySelector('.ask').innerText
+		let answer=document.querySelector('.answer').innerText
+		let nametime1=this.state.nametime1
+		let nametime2=this.state.nametime2
 		let about=document.querySelector('.about').value
 		let data={
 			Place:place,
@@ -124,8 +205,51 @@ class Xunwenbilu extends React.Component{
 		sessionStorage.setItem('xunwenId',res.data.ID)
 	}
 
+
+	
+
+    disabledStartDate = (startValue) => {
+    const endValue = this.state.endValue;
+    if (!startValue || !endValue) {
+      return false;
+    }
+    return startValue.valueOf() > endValue.valueOf();
+  }
+
+  disabledEndDate = (endValue) => {
+    const startValue = this.state.startValue;
+    if (!endValue || !startValue) {
+      return false;
+    }
+    return endValue.valueOf() <= startValue.valueOf();
+  }
+
+  onChange = (field, value) => {
+    this.setState({
+      [field]: value,
+    });
+  }
+
+  onStartChange = (value) => {
+    this.onChange('startValue', value);
+  }
+
+  onEndChange = (value) => {
+    this.onChange('endValue', value);
+  }
+
+  handleStartOpenChange = (open) => {
+    if (!open) {
+      this.setState({ endOpen: true });
+    }
+  }
+
+  handleEndOpenChange = (open) => {
+    this.setState({ endOpen: open });
+  }
+
 	render(){
-		let {data,visibal}=this.state
+		let {data,visibal,startValue, endValue, endOpen}=this.state
 		// console.log(data)
 		return(
 			
@@ -135,29 +259,52 @@ class Xunwenbilu extends React.Component{
 				<Link to='/xianchangbilu'><button>返回上一级</button></Link>
 				{!data ? '加载中' :
 				<div>
-					<div className='clearfix'>
+					<div className='clearfix' style={{'marginBottom':'5px'}}>
 						<p style={{'float':'right'}}>
-						第<input type="text" style={{'width':'50px','border':'0','outline':'0','borderBottom':'1px solid #aaaaaa'}} className='seconds'/>
-								次询问
+						第 
+						<Select  style={{'width':'60px','border':'0','outline':'0'}} className='seconds' value={this.state.seconds} onChange={this.handleChange1.bind(this)}>
+						      <Option value="1" >1</Option>
+						      <Option value="2">2</Option>
+						      <Option value="3" >3</Option>
+						      <Option value="4">4</Option>
+						  </Select>
+
+								 次询问
 						</p>
 					</div>
 					
 					<table>
 						<tr>
-							<td style={{'width':'40px'}}>时间</td>
-							<td colSpan='3'>
-								<input type="text" style={{'width':'30','border':'0','outline':'0','borderBottom':'1px solid #aaaaaa'}}/>
-								年<input type="text" style={{'width':'30','border':'0','outline':'0','borderBottom':'1px solid #aaaaaa'}}/>
-								月<input type="text" style={{'width':'30','border':'0','outline':'0','borderBottom':'1px solid #aaaaaa'}}/>
-								日<input type="text" style={{'width':'30','border':'0','outline':'0','borderBottom':'1px solid #aaaaaa'}}/>
-								时<input type="text" style={{'width':'30','border':'0','outline':'0','borderBottom':'1px solid #aaaaaa'}}/><br/>
-								
-								分至<input type="text" style={{'width':'30','border':'0','outline':'0','borderBottom':'1px solid #aaaaaa'}}/>
-								时<input type="text" style={{'width':'30','border':'0','outline':'0','borderBottom':'1px solid #aaaaaa'}}/>
-								分
-								
-							</td>
+							<td style={{'width':'40px'}} rowSpan='2'>时间</td>
+							<td>开始</td>
+							<td colSpan='2'>
+								 <DatePicker
+						          disabledDate={this.disabledStartDate.bind(this)}
+						          showTime
+						          format="YYYY-MM-DD HH:mm:ss"
+						          value={startValue}
+						          placeholder="Start"
+						          onChange={this.onStartChange}
+						          onOpenChange={this.handleStartOpenChange.bind(this)}
+						          style={{'width':'100%'}}/>
+						     </td>
 						</tr>
+						<tr>
+								<td>结束</td>
+								<td colSpan='2'>
+						          <DatePicker
+						          disabledDate={this.disabledEndDate.bind(this)}
+						          showTime
+						          format="YYYY-MM-DD HH:mm:ss"
+						          value={endValue}
+						          placeholder="End"
+						          onChange={this.onEndChange.bind(this)}
+						          open={endOpen}
+						          onOpenChange={this.handleEndOpenChange.bind(this)}
+						          style={{'width':'100%'}}/>
+					        	</td>
+							</tr>	
+							
 						<tr>
 							<td>地点</td>
 							<td colSpan='3'>
@@ -166,41 +313,62 @@ class Xunwenbilu extends React.Component{
 						</tr>
 						<tr>
 							<td>询问人</td>
-							<td>
-								<input type="text" style={{'width':'90%','border':'0','outline':'0'}} className='askman'/>
-							</td>
-							<td>记录人</td>
-							<td>
-								<input type="text" style={{'width':'90%','border':'0','outline':'0'}}  className='whiteman'/>
+							<td colSpan='3'>
+								
+								<Select  style={{'width':'100%','border':'0','outline':'0'}} className='askman' value={this.state.askman} onChange={this.handleChange2.bind(this)}>
+						      <Option value="1" >1</Option>
+						      <Option value="2">2</Option>
+						      <Option value="3" >3</Option>
+						      <Option value="4">4</Option>
+						   </Select>
 							</td>
 						</tr>
 						<tr>
-							<td>被询问人</td>
-							<td>
+							<td>记录人</td>
+							<td colSpan='3'>
+								
+							<Select  style={{'width':'100%','border':'0','outline':'0'}} className='whiteman' value={this.state.whiteman} onChange={this.handleChange3.bind(this)}>
+						      <Option value="1" >1</Option>
+						      <Option value="2">2</Option>
+						      <Option value="3" >3</Option>
+						      <Option value="4">4</Option>
+						   </Select>
+							</td>
+						</tr>
+						<tr>
+							<td rowSpan='6'>被询问人</td>
+							<td>姓名</td>
+							<td colSpan='2'>
 								<input type="text" style={{'width':'90%','border':'0','outline':'0'}} value={data.Name} className='beixunwenren'/>
 							</td>
+						</tr>
+						<tr>
 							<td>与案件关系</td>
-							<td>
+							<td  colSpan='2'>
 								<input type="text" style={{'width':'90%','border':'0','outline':'0'}} value={data.Relation} className='anjianguanxi'/>
 							</td>
 						</tr>
 						<tr>
 							<td>性别</td>
-							<td>
+							<td colSpan='2'>
 								<input type="text" style={{'width':'90%','border':'0','outline':'0'}} value={data.Sex} className='sex'/>
 							</td>
+						</tr>
+						<tr>
 							<td>年龄</td>
-							<td>
+							<td colSpan='2'>
 								<input type="text" style={{'width':'90%','border':'0','outline':'0'}} value={data.Name} className='old'/>
 							</td>
 						</tr>
 						<tr>
 							<td>身份证号</td>
-							<td>
+							<td colSpan='2'>
 								<input type="text" style={{'width':'90%','border':'0','outline':'0'}} value={data.IDCode} className='codeid'/>
 							</td>
+						</tr>
+						<tr>
 							<td>联系电话</td>
-							<td>
+							<td colSpan='2'>
 								<input type="text" style={{'width':'90%','border':'0','outline':'0'}} value={data.TelNo} className='tel'/>
 							</td>
 						</tr>
@@ -221,45 +389,114 @@ class Xunwenbilu extends React.Component{
 						<tr>
 							<td colSpan='4'>
 								<p style={{'textIndent':'0','textAlign':'left'}}>
-								我们是：<input type="text" style={{'width':'80px','border':'0','outline':'0','borderBottom':'1px solid #aaaaaa'}} className='who'/>
-								的执法人员<input type="text" style={{'width':'80px','border':'0','outline':'0','borderBottom':'1px solid #aaaaaa'}} className='name1'/>,
-								<input type="text" style={{'width':'80px','border':'0','outline':'0','borderBottom':'1px solid #aaaaaa'}} className='name2'/>
-								这是我们的执法证件，执法证件号码分别是<input type="text" style={{'width':'80px','border':'0','outline':'0','borderBottom':'1px solid #aaaaaa'}} className='codeid1'/>、<input type="text" style={{'width':'80px','border':'0','outline':'0','borderBottom':'1px solid #aaaaaa'}} className='codeid2'/>，请你确认，现依法向你询问，请如实回答所有问题，执法人员与你有直接利害关系的，你可以申请回避。
+								我们是：<input type="text" style={{'width':'180px','border':'0','outline':'0','borderBottom':'1px solid #aaaaaa'}} className='who' value={sessionStorage.Department}/>
+								的执法人员
+									<Select  style={{'width':'120px','border':'0','outline':'0'}} className='name1' value={this.state.name1} onChange={this.handleChange4.bind(this)}>
+								      <Option value="1" >1</Option>
+								      <Option value="2">2</Option>
+								      <Option value="3" >3</Option>
+								      <Option value="4">4</Option>
+								   </Select>
+								,
+
+
+								<Select  style={{'width':'120px','border':'0','outline':'0'}} className='name2' value={this.state.name2} onChange={this.handleChange5.bind(this)}>
+								      <Option value="1" >111111111111</Option>
+								      <Option value="2">2</Option>
+								      <Option value="3" >3</Option>
+								      <Option value="4">4</Option>
+								   </Select>
+								
+								这是我们的执法证件，执法证件号码分别是
+									
+
+
+									<Select  style={{'width':'180px','border':'0','outline':'0'}} className='codeid1' value={this.state.codeid1} onChange={this.handleChange6.bind(this)}>
+								      <Option value="1" >111111111111</Option>
+								      <Option value="5">2</Option>
+								      <Option value="3" >3</Option>
+								      <Option value="4">4</Option>
+								   </Select>
+
+									、
+									
+									<Select  style={{'width':'180px','border':'0','outline':'0'}} className='codeid2'value={this.state.codeid2} onChange={this.handleChange7.bind(this)}>
+								      <Option value="1" >111111111111</Option>
+								      <Option value="2">2</Option>
+								      <Option value="3" >3</Option>
+								      <Option value="4">4</Option>
+								   </Select>
+
+									，请你确认，现依法向你询问，请如实回答所有问题，执法人员与你有直接利害关系的，你可以申请回避。
 							
 								</p>
 								<p style={{'textIndent':'0','textAlign':'left'}}>
 									<p>问：</p>
-									<textarea name="" id="" cols="10" rows="3"
-												 style={{'width':'80%','border':'0','outline':'0','border':'1px solid #aaaaaa','marginLeft':'40px'}} className='ask'>
-									</textarea>
+									
+									<div className='ask' style={{'width':'240px','min-height':'150px','margin':'0 auto','lineHeight':'40px','border':'0','outline':'0','textAlign':'left','textIndent':'30px'}}  contentEditable='true'>
+									</div>
 								</p>
 								<p style={{'textIndent':'0','textAlign':'left'}}>
 									<p>答：</p>
-									<textarea name="" id="" cols="10" rows="3"
-												 style={{'width':'80%','border':'0','outline':'0','border':'1px solid #aaaaaa','marginLeft':'40px'}} className='answer'>
-									</textarea>
+									<div className='answer' style={{'width':'240px','min-height':'150px','margin':'0 auto','lineHeight':'40px','border':'0','outline':'0','textAlign':'left','textIndent':'30px'}}  contentEditable='true'>
+									</div>
 								</p>
 							</td>
 						</tr>
 						<tr>
-							<td colSpan='2'>询问人签名及时间</td>
-							<td colSpan='2'>被询问人签名及时间</td>
-							
+							<td >询问人签名</td>
+							<td colSpan='3'>
+								
+
+								<Select  style={{'width':'100%','border':'0','outline':'0'}} className='name3' value={this.state.name3} onChange={this.handleChange8.bind(this)}>
+								      <Option value="1" >111111111111</Option>
+								      <Option value="2">2</Option>
+								      <Option value="3" >3</Option>
+								      <Option value="4">4</Option>
+								   </Select>
+							</td>
 						</tr>
 						<tr>
-							<td colSpan='1'>
-								<input type="text" style={{'width':'90%','border':'0','outline':'0'}} className='name3'/>
-							</td>
-							<td colSpan='1'>
-								<input type="text" style={{'width':'90%','border':'0','outline':'0'}} className='nametime1'/>
-							</td>
-							<td colSpan='1'>
-								<input type="text" style={{'width':'90%','border':'0','outline':'0'}} className='name4'/>
-							</td>
-							<td colSpan='1'>
-								<input type="text" style={{'width':'90%','border':'0','outline':'0'}} className='nametime2'/>
+							<td>时间</td>
+							<td colSpan='3'>
+								
+
+								<Select  style={{'width':'100%','border':'0','outline':'0'}} className='nametime1' value={this.state.nametime1} onChange={this.handleChange9.bind(this)}>
+								      <Option value="1" >111111111111</Option>
+								      <Option value="2">2</Option>
+								      <Option value="3" >3</Option>
+								      <Option value="4">4</Option>
+								   </Select>
 							</td>
 						</tr>
+
+						<tr>
+							<td >被询问人签名</td>
+							<td colSpan='3'>
+								
+
+								<Select  style={{'width':'100%','border':'0','outline':'0'}} className='name4'value={this.state.name4} onChange={this.handleChange10.bind(this)}>
+								      <Option value="1" >111111111111</Option>
+								      <Option value="2">2</Option>
+								      <Option value="3" >3</Option>
+								      <Option value="4">4</Option>
+								   </Select>
+							</td>
+						</tr>
+						<tr>
+							<td>时间</td>
+							<td colSpan='3'>
+								
+
+								<Select  style={{'width':'100%','border':'0','outline':'0'}} className='nametime2' value={this.state.nametime2} onChange={this.handleChange11.bind(this)}>
+								      <Option value="1" >111111111111</Option>
+								      <Option value="2">2</Option>
+								      <Option value="3" >3</Option>
+								      <Option value="4">4</Option>
+								   </Select>
+							</td>
+						</tr>
+						
 						<tr>
 							<td>备注</td>
 							<td colSpan='3'>

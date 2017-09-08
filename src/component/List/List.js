@@ -10,9 +10,15 @@ class List extends React.Component{
 		sessionStorage.setItem('xianchangId','') //嫌疑人基本信息ID
 		sessionStorage.setItem('allId','')       //现场笔录信息ID
 		sessionStorage.setItem('xunwenId','')    //询问笔录信息ID
-		sessionStorage.setItem('lianId','')      //立案信息ID
+		sessionStorage.setItem('lianId','')  
+    //立案信息ID
 															  //userId    登录人员的ID
+
+
+		sessionStorage.setItem('Deparment':'')
 	}
+
+
 	render(){
 		return(
 			<div className='list'>

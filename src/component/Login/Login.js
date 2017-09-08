@@ -65,6 +65,8 @@ class Login extends React.Component{
 			store.dispatch({type:'LOGIN',userId:res.data.Data.ID})
 			sessionStorage.setItem('userId',res.data.Data.ID)
 			console.log(res.data.Data.ID)
+			sessionStorage.setItem('Department',res.data.Data.Department)
+			console.log(sessionStorage.Department)
 					
 		}
 		
