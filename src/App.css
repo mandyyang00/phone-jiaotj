@@ -3,6 +3,9 @@
   bottom: 0;
   margin: 0;
   background-color: white;
+ /* border:2px solid lightblue;*/
+  border-top: 30px solid lightblue;
+  border-bottom: 30px solid lightblue;
 }
 .clearfix:before,.clearfix:after {content: " ";
                                  display: block; 
@@ -30,6 +33,16 @@ h1{
   margin: 0;
   margin-bottom: 20px;
 }
+ .ss{
+
+  background: linear-gradient(to right bottom,transparent 49.5%,#aaa 49.5%,#aaa 51%,transparent 50%);
+}
+button{
+  background-color: lightblue;
+  border-radius: 3px;
+}
+
+
 
 
 

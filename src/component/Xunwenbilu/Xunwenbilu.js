@@ -141,8 +141,8 @@ class Xunwenbilu extends React.Component{
     		nametime2:res.data.InvolvedSignTime
 
 		})
-		document.querySelector('.time1 .ant-input').value=this.state.BetweenBegin
-		document.querySelector('.time2 .ant-input').value=this.state.BetweenEnd
+		// document.querySelector('.time1 .ant-input').value=this.state.BetweenBegin
+		// document.querySelector('.time2 .ant-input').value=this.state.BetweenEnd
 		document.querySelector('.askman').value=this.state.Asker1
 		document.querySelector('.whiteman').value=this.state.Asker2
 		document.querySelector('.name1').value=this.state.Asker1Sign
@@ -271,8 +271,8 @@ class Xunwenbilu extends React.Component{
 			
 			<div className="xunwenbilu" >
 				<Header></Header>	
-				<h1>询问笔录</h1>
-				<Link to='/xianchangbilu'><button>返回上一级</button></Link>
+				<h2>询问笔录</h2>
+				
 				{!data ? '加载中' :
 				<div>
 					<div className='clearfix' style={{'marginBottom':'5px'}}>
@@ -512,14 +512,16 @@ class Xunwenbilu extends React.Component{
 
 					</table>
 				</div>}	
-				{visibal ?
-					<Link to='lian'><button onClick={this.onOkDown.bind(this)}>立案申请表</button></Link>
-					: <button onClick={this.onOkDown.bind(this)}>立案申请表</button>
-				}
+
+			<div style={{'marginTop':'20px'}} className='clearfix'>
+				
+					<Link to='lian'><button  style={{'float':'left','marginLeft':'20px'}} onClick={this.onOkDown.bind(this)}>立案申请表</button></Link>
+					 
 				
 				
+				<Link to='/xianchangbilu'><button style={{'float':'right','marginRight':'20px'}}>返回上一级</button></Link>
 					
-					
+			</div>		
 			</div>
 		)
 	}

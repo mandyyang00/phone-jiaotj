@@ -31,6 +31,7 @@ class App extends Component {
     return (
       <Provider store={store}>
     	 <HashRouter>
+       
       	<div className="App">
          	<Route path='/' exact component={Login}></Route>
          	<Route path='/login' component={Login}></Route>
@@ -41,6 +42,7 @@ class App extends Component {
           <Route path='/anjianchulilist' component={Anjianchulilist}></Route>
           <Route path='/anjianchuliyijianshu' component={Anjianchuliyijianshu}></Route>
       	</div>
+       
 
       </HashRouter>
       </Provider>

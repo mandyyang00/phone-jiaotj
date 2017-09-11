@@ -4,6 +4,12 @@
 	background: white;
 	margin-bottom: 20px;
 }
+.xianchangbilu h2{
+	margin: 0 auto;
+	text-align: center;
+	font-size: 18px;
+	line-height: 40px;
+}
 
 .xianchangbilu table{
 	border-collapse:collapse;

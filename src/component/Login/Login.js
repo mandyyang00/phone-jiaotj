@@ -86,7 +86,7 @@ class Login extends React.Component{
 					{visibal 
 					?
 					
-						<Link to='/list'><button onClick={this.onClick.bind(this)}>登录</button ></Link>
+						<Link to='/xianchangbilu'><button onClick={this.onClick.bind(this)}>登录</button ></Link>
 					:
 						<button onClick={this.onClick.bind(this)}>登录</button>
 					}

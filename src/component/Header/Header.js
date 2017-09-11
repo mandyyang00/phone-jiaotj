@@ -16,7 +16,8 @@ class Header extends React.Component{
 	
 	render(){
 		return(
-			<div className='header'>
+			<div className='header clearfix'>
+				<h1><i>秦皇岛市交通局执法系统</i></h1>
 			
 				<Link to='/'><button onClick={this.loginOut.bind(this)}>退出</button></Link>
 			</div>

@@ -4,6 +4,12 @@
 	background: white;
 	margin-bottom: 20px;
 }
+.xunwenbilu h2{
+	margin: 0 auto;
+	text-align: center;
+	line-height: 40px;
+	font-size: 18px
+}
 
 .xunwenbilu table{
 	border-collapse:collapse;

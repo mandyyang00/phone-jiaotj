@@ -88,19 +88,20 @@ class Lianan extends React.Component{
 			seconds:`${value}`,
 			visibal:true
 		})
+	}
 	render(){
 			let {data,visibal}=this.state
 		return(
 			<div className='lian'>
 				<Header></Header>	
-				<h1>立案审批表</h1>
-				<Link to='/xunwenbilu'><button>返回上一级</button></Link>
+				<h2>立案审批表</h2>
+				
 				 
 				<div className='title'>
 
 					<input type="text" className='code1'/>
 					<span >罚案</span>
-					<span style={{'border':'0','width':'10px'}}>(</span><input type="text" style={{'border':'0','width':'40px'}} className='code2'/><span style={{'border':'0','width':'10px'}}>)</span>
+					<span style={{'border':'0','width':'20px'}}>(</span><input type="text" style={{'border':'0','width':'40px'}} className='code2'/><span style={{'border':'0','width':'20px'}}>)</span>
 					
 					<input type="text" className='code3'/>
 					<span>号</span>
@@ -122,23 +123,29 @@ class Lianan extends React.Component{
 					<tr >
 						<td style={{'width':'40px'}}>受案<br/>时间</td>
 						<td colSpan='3'>
-							<DatePicker style={{'width':'99%','border':'0','outline':'0'}} className='time1'/>
+							<DatePicker style={{'width':'100%','border':'0','outline':'0'}} className='time1'/>
 						</td>
 					</tr>
 					<tr>
 						<td>案由</td>
 						<td colSpan='3'>
-							<input type="text" style={{'width':'90%','border':'0','outline':'0'}} className='time1'/>
+							
+							<Select  style={{'width':'100%','border':'0','outline':'0'}} className='beacuse' value={this.state.seconds} onChange={this.handleChange1.bind(this)}>
+						      <Option value="1" >1</Option>
+						      <Option value="2">2</Option>
+						      <Option value="3" >3</Option>
+						      <Option value="4">4</Option>
+						  </Select>
 						</td>
 					</tr>
 
 					<tr>
-						<td rowSpan='10'>案件当事人基本情况
+						<td rowSpan='12'>案件当事人基本情况
 						</td>
 					</tr>
 
 					<tr>
-						<td rowSpan='6'>公民</td>
+						<td rowSpan='6' style={{'width':'40px'}}>公民</td>
 						<td>姓名</td>
 						<td colSpan='2'>
 							<input type="text" style={{'width':'90%','border':'0','outline':'0'}} value={data.InvolvedName}/>
@@ -179,7 +186,7 @@ class Lianan extends React.Component{
 					</tr>
 
 					<tr>
-						<td rowSpan='4'>法人或其他组织</td>
+						<td rowSpan='5'>法人或其他组织</td>
 					</tr>
 
 					<tr>
@@ -247,7 +254,7 @@ class Lianan extends React.Component{
 							</textarea>
 							<p style={{'textIndent':'50%','lineHeight':'20px'}}>签名:
 								
-								<Select  style={{'width':'100%','border':'0','outline':'0'}} className='name1' value={this.state.seconds} onChange={this.handleChange1.bind(this)}>
+								<Select  style={{'width':'30%','border':'0','outline':'0'}} className='name1' value={this.state.seconds} onChange={this.handleChange1.bind(this)}>
 						      <Option value="1" >1</Option>
 						      <Option value="2">2</Option>
 						      <Option value="3" >3</Option>
@@ -256,7 +263,7 @@ class Lianan extends React.Component{
 							</p>
 							<p style={{'textIndent':'50%','lineHeight':'20px'}}>时间:
 								
-								<DatePicker style={{'width':'99%','border':'0','outline':'0'}} className='time2'/>
+								<DatePicker style={{'width':'30%','border':'0','outline':'0'}} className='time2'/>
 							</p>
 						</td>
 					</tr>
@@ -272,7 +279,7 @@ class Lianan extends React.Component{
 							</textarea>
 							<p style={{'textIndent':'50%','lineHeight':'20px'}}>签名:
 								
-								<Select  style={{'width':'100%','border':'0','outline':'0'}} className='name2' value={this.state.seconds} onChange={this.handleChange1.bind(this)}>
+								<Select  style={{'width':'30%','border':'0','outline':'0'}} className='name2' value={this.state.seconds} onChange={this.handleChange1.bind(this)}>
 						      <Option value="1" >1</Option>
 						      <Option value="2">2</Option>
 						      <Option value="3" >3</Option>
@@ -281,7 +288,7 @@ class Lianan extends React.Component{
 							</p>
 							<p style={{'textIndent':'50%','lineHeight':'20px'}}>时间:
 								
-								<DatePicker style={{'width':'99%','border':'0','outline':'0'}} className='time3'/>
+								<DatePicker style={{'width':'30%','border':'0','outline':'0'}} className='time3'/>
 							</p>
 						</td>
 					</tr>
@@ -292,12 +299,13 @@ class Lianan extends React.Component{
 						</td>
 					</tr>
 				</table>}
+				<div style={{'marginTop':'20px'}} className='clearfix'>
 				
-				<Link to='/list'><button onClick={this.handleOk.bind(this)}>提交</button></Link>
+					<Link to='/list'><button style={{'float':'left','marginLeft':'20px'}} onClick={this.handleOk.bind(this)}>提交并保存</button></Link>
+					
+					<Link to='/xunwenbilu'><button style={{'float':'right','marginRight':'20px'}}>返回上一级</button></Link>
 				
-				
-				
-				
+				</div>
 			</div>
 		)
 	}

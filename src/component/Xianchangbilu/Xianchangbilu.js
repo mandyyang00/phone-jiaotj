@@ -165,46 +165,46 @@ class Xianchangbilu extends React.Component{
 		
 		
 
-		if(nameV.length==0){
-			this.setState({
-				class1:true
-			})
-		}
-		if(idcode.length==0){
-			this.setState({
-				class2:true
-			})
-		}
-		if(relation.length==0){
-			this.setState({
-				class3:true
-			})
-		}
-		if(deparment.length==0){
-			this.setState({
-				class4:true
-			})
-		}
-		if(tel.length==0){
-			this.setState({
-				class5:true
-			})
-		}
-		if(che.length==0){
-			this.setState({
-				class6:true
-			})
-		}
-		if(chuan.length==0){
-			this.setState({
-				class7:true
-			})
-		}
-		if(address.length==0){
-			this.setState({
-				class8:true
-			})
-		}
+		// if(nameV.length==0){
+		// 	this.setState({
+		// 		class1:true
+		// 	})
+		// }
+		// if(idcode.length==0){
+		// 	this.setState({
+		// 		class2:true
+		// 	})
+		// }
+		// if(relation.length==0){
+		// 	this.setState({
+		// 		class3:true
+		// 	})
+		// }
+		// if(deparment.length==0){
+		// 	this.setState({
+		// 		class4:true
+		// 	})
+		// }
+		// if(tel.length==0){
+		// 	this.setState({
+		// 		class5:true
+		// 	})
+		// }
+		// if(che.length==0){
+		// 	this.setState({
+		// 		class6:true
+		// 	})
+		// }
+		// if(chuan.length==0){
+		// 	this.setState({
+		// 		class7:true
+		// 	})
+		// }
+		// if(address.length==0){
+		// 	this.setState({
+		// 		class8:true
+		// 	})
+		// }
 			
 	}
 
@@ -233,8 +233,7 @@ class Xianchangbilu extends React.Component{
 		let pliceID2=this.state.policeID1
 		let plicewrite=document.querySelector('.plicewrite').value
 		let maincontent=document.querySelector('.maincontent').innerText
-		let pliceman3=document.querySelector('.pliceman3').value
-		let times=document.querySelector('.ant-input').value
+		let pliceman3=document.querySelector('.pliceman3').value	
 		let about=document.querySelector('.about').value
 		let pliceman4=this.state.policeman1
 		let pliceman5=this.state.policeman2
@@ -261,41 +260,41 @@ class Xianchangbilu extends React.Component{
 					.catch(err=>console.log(err))
 		console.log('hhhh',data)
 		
-		if(place.length==0){
-			this.setState({
-				class9:true
-			})
-		}
-		if(times1.length==0){
-			this.setState({
-				class10:true
-			})
-		}
-		if(pliceman1.length==0){
-			this.setState({
-				class11:true
-			})
-		}
-		if(pliceman2.length==0){
-			this.setState({
-				class12:true
-			})
-		}
-		if(pliceID1.length==0){
-			this.setState({
-				class13:true
-			})
-		}
-		if(pliceID2.length==0){
-			this.setState({
-				class14:true
-			})
-		}
-		if(plicewrite.length==0){
-			this.setState({
-				class15:true
-			})
-		}
+		// if(place.length==0){
+		// 	this.setState({
+		// 		class9:true
+		// 	})
+		// }
+		// if(times1.length==0){
+		// 	this.setState({
+		// 		class10:true
+		// 	})
+		// }
+		// if(pliceman1.length==0){
+		// 	this.setState({
+		// 		class11:true
+		// 	})
+		// }
+		// if(pliceman2.length==0){
+		// 	this.setState({
+		// 		class12:true
+		// 	})
+		// }
+		// if(pliceID1.length==0){
+		// 	this.setState({
+		// 		class13:true
+		// 	})
+		// }
+		// if(pliceID2.length==0){
+		// 	this.setState({
+		// 		class14:true
+		// 	})
+		// }
+		// if(plicewrite.length==0){
+		// 	this.setState({
+		// 		class15:true
+		// 	})
+		// }
 		
 		   //填写的时间改变时，后面签名的时间也随之改变
 		this.setState({														//第一个签名
@@ -415,8 +414,8 @@ class Xianchangbilu extends React.Component{
 		return(
 			<div className='xianchangbilu'>
 				<Header></Header>
-				<h1>现场笔录</h1>
-				<Link to='/list'><button>返回上一级</button></Link>
+				<h2 style={{'lineHeight':'40px'}}>现场笔录</h2>
+				
 				<table>
 					<tr>
 						<td colSpan='2' >现场人员基本情况</td>
@@ -586,10 +585,13 @@ class Xianchangbilu extends React.Component{
 						</td>
 					</tr>
 				</table>
-				{visibal ? 
-					<Link to='/xunwenbilu'><button onClick={this.onClickDown.bind(this)}>询问笔录</button></Link>
-					:
-					<button  onClick={this.onClickDown.bind(this)}>询问笔录</button>}
+				<div style={{'marginTop':'20px'}} className='clearfix'>	
+				
+					<Link to='/xunwenbilu'><button onClick={this.onClickDown.bind(this)} style={{'float':'left','marginLeft':'20px'}}>询问笔录</button></Link>
+					
+					
+					<Link to='/list'><button style={{'float':'right','marginRight':'20px'}}>返回上一级</button></Link>
+				</div>
 		
 				
 			</div>

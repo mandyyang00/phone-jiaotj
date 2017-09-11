@@ -1,6 +1,7 @@
 .login{
 	width: 100%;
 	margin: 0 auto;
+	padding-bottom: 300px
 }
 .login div{
 	margin-top: 50px;
@@ -10,7 +11,7 @@
 	width: 60%;
 	margin: 0 auto;
 	margin-top: 20px;
-	line-height: 30px;
+	line-height: 40px;
 	border:1px solid #aaaaaa;
 }
 .login div button{
@@ -24,4 +25,9 @@
  .ss{
 
 	background: linear-gradient(to right bottom,transparent 49.5%,#aaa 49.5%,#aaa 51%,transparent 50%);
+}
+.login h1{
+	margin-top: 50px;
+	font-weight: bolder;
+	text-shadow:5px 5px 10px #aaaaaa;
 }
